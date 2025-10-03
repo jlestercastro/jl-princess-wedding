@@ -5,11 +5,7 @@
   "projects": {
     "JLC-MPM-Wedding": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -64,7 +60,8 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "prerender": false
             }
           },
           "defaultConfiguration": "production"
@@ -113,6 +110,6 @@
     }
   },
   "cli": {
-    "analytics": "1c2dc3f1-41a3-46b2-b198-8c50822a3246"
+    "analytics": "7f424448-3b44-4c48-be38-97d76228bbee"
   }
 }

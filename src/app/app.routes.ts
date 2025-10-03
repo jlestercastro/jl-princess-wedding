@@ -14,5 +14,6 @@ export const routes: Routes = [
   { path: 'people', component: EntourageComponent},
   { path: 'event', component: EventComponent},
   { path: 'rsvp', component: ContactComponent},
-  { path: 'suppliers', component: SupplierComponent}
+  { path: 'suppliers', component: SupplierComponent},
+  { path: '**', redirectTo: '' }
 ];
