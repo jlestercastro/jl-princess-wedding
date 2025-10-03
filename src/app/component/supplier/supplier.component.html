@@ -1,0 +1,30 @@
+<div id="supplier">
+  <div class="container">
+    <section class="suppliers-section">
+      <div class="section-title text-center">
+        <h2>Suppliers</h2>
+        <div class="divider"></div>
+      </div>
+      <p class="section-description">{{description}}</p>
+      <div class="suppliers-grid">
+        <div class="supplier-card" *ngFor="let vendor of filteredVendors">
+          <h3>{{vendor.name}}</h3>
+          <p class="service-type">{{vendor.service}}</p>
+
+          <div class="supplier-links">
+            <a *ngIf="vendor.facebook" href="https://facebook.com/{{vendor.facebook}}" [title]="vendor.facebook" target="_blank">
+              <i class="fa-brands fa-square-facebook"></i>
+            </a>
+            <a *ngIf="vendor.instagram" href="https://instagram.com/{{vendor.instagram}}" [title]="vendor.instagram" target="_blank"
+              rel="noopener">
+              <i class="fa-brands fa-square-instagram"></i>
+            </a>
+            <a *ngIf="vendor.email" [href]="vendor.email" [title]="vendor.email">
+              <i class="fa-solid fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

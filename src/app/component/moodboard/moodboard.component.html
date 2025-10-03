@@ -1,0 +1,69 @@
+<!-- moodboard.component.html -->
+<div class="moodboard-container">
+  <div class="moodboard-header">
+    <h1 class="moodboard-title">MOODBOARD</h1>
+    <h2 class="motif-title">{{ title }}</h2>
+    <p class="subtitle">{{ subtitle }}</p>
+  </div>
+
+  <div class="content-section">
+    <!-- Image Gallery Section -->
+    <div class="image-gallery-section">
+      <h3 class="section-title">Visual Inspiration</h3>
+      <div class="image-gallery">
+        <div 
+          class="image-container" 
+          *ngFor="let image of imagesToShow; let i = index"
+        >
+          <div class="image-wrapper">
+            <img 
+              [src]="image.src" 
+              [alt]="image.alt"
+              loading="lazy"
+              class="gallery-image"
+            />
+            <div class="image-overlay">
+              
+            </div>
+          </div>
+          <p class="image-caption">{{ image.caption }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Description Section -->
+    <div class="color-description">
+      <p>{{ colorDescription }}</p>
+    </div>
+
+    <!-- Color Palette Section -->
+    <div class="color-palette-section">
+      <h3 class="section-title">Color Palette</h3>
+      <div class="color-palette">
+        <div class="color-swatch soft-ivory">
+          <span class="color-name">Soft Ivory</span>
+        </div>
+        <div class="color-swatch crisp-white">
+          <span class="color-name">Crisp White</span>
+        </div>
+        <div class="color-swatch navy-blue">
+          <span class="color-name">Navy Blue</span>
+        </div>
+        <div class="color-swatch royal-blue">
+          <span class="color-name">Royal Blue</span>
+        </div>
+        <div class="color-swatch dusty-blue">
+          <span class="color-name">Dusty Blue</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dress Code Section -->
+    <div class="dress-code-section">
+      <div class="dress-code-card">
+        <h3 class="dress-code-title">Dress Code</h3>
+        <p class="dress-code-description">{{ dressCode }}</p>
+      </div>
+    </div>
+  </div>
+</div>

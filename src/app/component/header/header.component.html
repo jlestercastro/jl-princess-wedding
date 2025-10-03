@@ -1,0 +1,43 @@
+<header class="wedding-header" [class.sticky]="isSticky">
+  <div class="header-container sticky-header">
+    <div class="brand">
+      <a routerLink="/">
+        JL <i class="bi bi-heart-fill"></i> Princess
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
+      <ul>
+        <li><a href="#home" routerLinkActive="active" (click)="closeMobileMenu()">Home</a></li>
+        <li><a href="#couple" routerLinkActive="active" (click)="closeMobileMenu()">Couple</a></li>
+        <li><a href="#story" routerLinkActive="active" (click)="closeMobileMenu()">Story</a></li>
+        <li><a href="#people" routerLinkActive="active" (click)="closeMobileMenu()">People</a></li>
+        <li><a href="#event" routerLinkActive="active" (click)="closeMobileMenu()">Event</a></li>
+        <li><a href="#rsvp" routerLinkActive="active" (click)="closeMobileMenu()">Rsvp</a></li>
+        <li><a href="#supplier" routerLinkActive="active" (click)="closeMobileMenu()">Suppliers</a></li>
+      </ul>
+    </nav>
+
+    <!-- Mobile Navigation Toggle -->
+    <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" aria-label="Toggle menu">
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+    </button>
+
+    <!-- Mobile Navigation (hidden by default) -->
+    <nav class="mobile-nav" [class.active]="mobileMenuOpen">
+      <div class="mobile-nav-handle" (click)="closeMobileMenu()"></div>
+      <ul>
+        <li><a href="#home" routerLinkActive="active" (click)="closeMobileMenu()">Home</a></li>
+        <li><a href="#couple" routerLinkActive="active" (click)="closeMobileMenu()">Couple</a></li>
+        <li><a href="#story" routerLinkActive="active" (click)="closeMobileMenu()">Story</a></li>
+        <li><a href="#people" routerLinkActive="active" (click)="closeMobileMenu()">People</a></li>
+        <li><a href="#event" routerLinkActive="active" (click)="closeMobileMenu()">Event</a></li>
+        <li><a href="#rsvp" routerLinkActive="active" (click)="closeMobileMenu()">Rsvp</a></li>
+        <li><a href="#supplier" routerLinkActive="active" (click)="closeMobileMenu()">Suppliers</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

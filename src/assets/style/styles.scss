@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700|Great+Vibes');
+// @import "~bootstrap/dist/css/bootstrap.min.css";
+@import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: #666;
+  font-family: 'Dosis', sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.container {
+  padding-top: 3rem;
+}
+
+.section-title {
+  h2 {
+    position: relative;
+    font-size: 4rem;
+    font-family: 'Great Vibes', cursive;
+    color: #0B1D51;
+    margin-top: 2rem;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #0B1D51 50%, transparent 100%);
+    margin: 0.5rem auto 3rem auto;
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

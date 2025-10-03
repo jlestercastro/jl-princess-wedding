@@ -1,0 +1,89 @@
+<!-- countdown.component.html -->
+<div class="countdown-container" [class]="countdownClass">
+  <div class="countdown-header">
+    <h1 class="countdown-title">COUNTDOWN TO FOREVER</h1>
+    <p class="countdown-subtitle">Our Wedding Day Approaches</p>
+  </div>
+
+  <div class="countdown-content">
+    <!-- Main Countdown Timer -->
+    <div class="countdown-timer">
+      <div class="timer-display">
+        <div class="time-unit">
+          <div class="time-card">
+            <div class="time-value">{{ timeRemaining.days | number:'2.0' }}</div>
+            <div class="time-label">DAYS</div>
+          </div>
+          <div class="time-separator">:</div>
+        </div>
+        
+        <div class="time-unit">
+          <div class="time-card">
+            <div class="time-value">{{ timeRemaining.hours | number:'2.0' }}</div>
+            <div class="time-label">HOURS</div>
+          </div>
+          <div class="time-separator">:</div>
+        </div>
+        
+        <div class="time-unit">
+          <div class="time-card">
+            <div class="time-value">{{ timeRemaining.minutes | number:'2.0' }}</div>
+            <div class="time-label">MINUTES</div>
+          </div>
+          <div class="time-separator">:</div>
+        </div>
+        
+        <div class="time-unit">
+          <div class="time-card">
+            <div class="time-value">{{ timeRemaining.seconds | number:'2.0' }}</div>
+            <div class="time-label">SECONDS</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="countdown-progress">
+        <div class="progress-bar" [style.width.%]="getProgressPercentage()"></div>
+      </div>
+    </div>
+
+    <!-- Wedding Date Display -->
+    <div class="wedding-date-display">
+      <div class="date-card">
+        <div class="calendar-icon">📅</div>
+        <div class="date-info">
+          <h3 class="date-title">Save The Date</h3>
+          <p class="wedding-date">{{ getWeddingDateFormatted() }}</p>
+          <p class="wedding-time">⏰ {{ getWeddingTimeFormatted() }}</p>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="action-btn calendar-btn" (click)="addToCalendar()">
+          <span class="btn-icon">📅</span>
+          Add to Calendar
+        </button>
+      </div>
+
+    </div>
+    
+
+    <!-- Countdown Message -->
+    <div class="countdown-message">
+      <p class="message-text">{{ currentMessage }}</p>
+    </div>
+
+  </div>
+
+  <!-- Floating Hearts -->
+  <div class="floating-hearts">
+    <div class="heart">💙</div>
+    <div class="heart">💙</div>
+    <div class="heart">💙</div>
+    <div class="heart">💙</div>
+    <div class="heart">💙</div>
+    <div class="heart">💙</div>
+    <div class="heart">💙</div>
+    <div class="heart">💙</div>
+  </div>
+</div>

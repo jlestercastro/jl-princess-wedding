@@ -1,0 +1,150 @@
+<div class="when-where-container">
+  <div class="when-where-header">
+    <h1 class="when-where-title">{{ sectionTitle }}</h1>
+    <p class="when-where-subtitle">{{ sectionSubtitle }}</p>
+  </div>
+
+  <div class="when-where-content">
+    <!-- Events Timeline -->
+    <div class="events-timeline">
+      <div class="event-card" *ngFor="let event of events" (click)="openEventDetail(event)">
+        <div class="event-date">
+          <div class="date-icon">
+            <span class="event-emoji">{{ event.icon }}</span>
+          </div>
+          <div class="date-details">
+            <div class="month">{{ getFormattedDate(event.date) | slice:0:3 }}</div>
+            <div class="day">{{ event.date.getDate() }}</div>
+            <div class="year">{{ event.date.getFullYear() }}</div>
+          </div>
+        </div>
+
+        <div class="event-content">
+          <h3 class="event-title">{{ event.title }}</h3>
+          <p class="event-time">⏰ {{ event.time }}</p>
+          <p class="event-location">📍 {{ event.location }}</p>
+
+          <div class="event-countdown">
+            <span class="countdown-badge">{{ getTimeUntilEvent(event.date) }}</span>
+          </div>
+
+          <div class="event-actions">
+            <button class="action-btn calendar-btn" (click)="$event.stopPropagation(); addToCalendar(event)">
+              Add to Calendar
+            </button>
+            <button class="action-btn map-btn" (click)="$event.stopPropagation(); openMap(event.exactAddress)">
+              View Map
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detailed Schedule View -->
+    <div class="schedule-section">
+      <h3 class="schedule-title">Wedding Day Schedule</h3>
+
+      <div class="schedule-timeline">
+        <div class="timeline-item" *ngFor="let event of events">
+          <div class="timeline-marker">
+            <div class="marker-icon">{{ event.icon }}</div>
+            <div class="timeline-line"></div>
+          </div>
+
+          <div class="timeline-content">
+            <div class="timeline-time">{{ event.time }}</div>
+            <h4 class="timeline-event">{{ event.title }}</h4>
+            <p class="timeline-location">{{ event.location }}</p>
+            <p class="timeline-description">{{ event.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Detail Modal -->
+    <div class="event-modal" *ngIf="selectedEvent" (click)="closeEventDetail()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="modal-close" (click)="closeEventDetail()">×</button>
+
+        <div class="modal-body">
+          <div class="modal-header">
+            <div class="modal-icon">
+              <span class="modal-emoji">{{ selectedEvent.icon }}</span>
+            </div>
+            <div class="modal-title-section">
+              <h2 class="modal-title">{{ selectedEvent.title }}</h2>
+              <p class="modal-date">{{ getFormattedDate(selectedEvent.date) }}</p>
+            </div>
+          </div>
+
+          <div class="modal-details">
+            <div class="detail-row">
+              <span class="detail-label">⏰ Time</span>
+              <span class="detail-value">{{ selectedEvent.time }}</span>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">📍 Location</span>
+              <span class="detail-value">{{ selectedEvent.location }}</span>
+            </div>
+
+            <div class="detail-row address-row">
+              <span class="detail-label">🏠 Address</span>
+              <span class="detail-value">{{ selectedEvent.address }}</span>
+            </div>
+
+            <div class="detail-row" *ngIf="selectedEvent.dressCode">
+              <span class="detail-label">👔 Dress Code</span>
+              <span class="detail-value">{{ selectedEvent.dressCode }}</span>
+            </div>
+          </div>
+
+          <div class="modal-description">
+            <p>{{ selectedEvent.description }}</p>
+          </div>
+
+          <div class="modal-note" *ngIf="selectedEvent.note">
+            <div class="note-box">
+              <span class="note-icon">💡</span>
+              <span class="note-text">{{ selectedEvent.note }}</span>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button class="modal-btn primary-btn" (click)="addToCalendar(selectedEvent)">
+              <span class="btn-icon">📅</span>
+              Add to Calendar
+            </button>
+            <button class="modal-btn secondary-btn" (click)="openMap(selectedEvent.address)">
+              <span class="btn-icon">🗺️</span>
+              View on Map
+            </button>
+          </div>
+
+          <div class="modal-decoration">
+            <div class="decoration-line"></div>
+            <div class="decoration-dots">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RSVP Reminder -->
+    <div class="rsvp-reminder">
+      <div class="rsvp-card">
+        <h3 class="rsvp-title">We Can't Wait to Celebrate With You!</h3>
+        <p class="rsvp-message">
+          Kindly RSVP by October 15, 2025 to help us make necessary arrangements for your comfort and enjoyment.
+        </p>
+        <a href="#rsvp">
+          <button class="rsvp-button">
+            Confirm Your Attendance
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>

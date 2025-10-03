@@ -1,0 +1,196 @@
+.wedding-slider {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Playfair Display', serif;
+
+  .slider-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    transform: scale(1.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+    &.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 1;
+    }
+
+    .slide-content {
+      transition: all 0.8s ease 0.3s;
+      background: url('../../../assets/image/slider-content.png') no-repeat center center / cover;
+      width: 60vh;
+      height: 50vh;
+      margin: auto;
+      display: inline-grid;
+      align-items: center;
+      z-index: 99;
+      position: relative;
+
+      /* For mobile devices */
+      @media (max-width: 768px) {
+        background-size: contain;
+        min-height: 20vh;
+      }
+
+      &.visible {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      h3 {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        font-family: 'Great Vibes', cursive;
+      }
+
+      p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        font-family: 'Montserrat', sans-serif;
+      }
+
+      .slide-button {
+        background: transparent;
+        border: 2px solid white;
+        color: white;
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+        font-family: 'Montserrat', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 30px;
+
+        &:hover {
+          background: white;
+          color: #333;
+        }
+      }
+    }
+  }
+
+  .slider-controls {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+
+    .control {
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 0 1rem;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.5);
+        transform: scale(1.1);
+      }
+
+      i {
+        font-size: 1.2rem;
+      }
+    }
+
+    .dots {
+      display: flex;
+      gap: 0.5rem;
+
+      span {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &.active {
+          background: white;
+          transform: scale(1.2);
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.8);
+        }
+      }
+    }
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .wedding-slider {
+    height: 60vh;
+
+    .slide {
+      .slide-content {
+        padding: 1.5rem;
+        width: 90%;
+
+        h3 {
+          font-size: 1.8rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .slider-controls {
+      bottom: 1rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .wedding-slider {
+    height: 50vh;
+
+    .slide {
+      .slide-content {
+        h3 {
+          font-size: 1.5rem;
+        }
+
+        .slide-button {
+          padding: 0.6rem 1.5rem;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}

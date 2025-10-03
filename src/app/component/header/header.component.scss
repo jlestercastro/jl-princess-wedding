@@ -1,0 +1,261 @@
+header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  color: #ffffff;
+  padding: 1rem 0;
+
+  /* Sticky State */
+  &.sticky {
+    padding: 1rem 0;
+    background: #0B1D51 ;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+
+    .main-nav ul li a {
+      color: #2c3e50;
+
+      &:hover {
+        color: #e74c3c;
+      }
+    }
+
+    .brand {
+      a {
+        color: #fff;
+
+        &:hover {
+          color: #FFB823;
+        }
+      }
+    }
+
+    .desktop-nav {
+      ul>li>a {
+        color: #fff;
+
+        &:hover {
+          color: #FFB823
+        }
+      }
+    }
+
+    .mobile-menu-toggle {
+      .hamburger {
+        background-color: #fff;
+      }
+    }
+  }
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #e3f2fd ;
+    font-family: 'Great Vibes', cursive;
+    font-weight: bolder;
+    font-size: 36px;
+    cursor: pointer;
+    padding-left: 1rem;
+
+    i {
+      font-size: x-large;
+      padding: 0 1rem;
+    }
+  }
+
+  .logo {
+    height: 40px;
+    margin-right: 10px;
+  }
+
+  .brand-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+.desktop-nav {
+  ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-left: 2rem;
+
+      a {
+        text-decoration: none;
+        color: #e3f2fd ;
+        font-weight: 500;
+        transition: color 0.3s ease;
+        position: relative;
+        padding: 0.5rem 0;
+        cursor: pointer;
+
+        &:hover {
+          color: #FFB823;
+          font-weight: 500;
+        }
+
+        &.active {
+          color: #fff;
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #0066cc;
+          }
+        }
+      }
+    }
+  }
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+
+  .hamburger {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #e3f2fd ;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
+}
+
+// Bottom sheet menu
+.mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 1%;
+  right: 1%;
+  width: auto;
+  background-color: #ffffff;
+  z-index: 1000;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.17, 0.84, 0.44, 1);
+  padding: 2rem 1.5rem;
+  max-height: 80vh;
+  overflow-y: auto;
+
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.9);
+
+  &.active {
+    transform: translateY(0);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      a {
+        display: flex;
+        align-items: center;
+        color: #333;
+        font-size: 1.1rem;
+        text-decoration: none;
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background-color: #0B1D51 ;
+          color: #fff;
+        }
+
+        &.active {
+          color: #0066cc;
+          background-color: #e6f0fa;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+.mobile-nav ul li {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      transition-delay: $i * 0.05s;
+    }
+  }
+}
+
+.mobile-nav.active ul li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+// Close button at top
+.mobile-nav-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+// Handle for drag gesture
+.mobile-nav-handle {
+  width: 40px;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 0.5rem;
+  margin: 0 auto 1.5rem;
+  cursor: pointer;
+  content: "x";
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+}

@@ -1,0 +1,134 @@
+<div class="entourage-container">
+  <div class="entourage-header">
+    <h1 class="entourage-title">{{ sectionTitle }}</h1>
+    <p class="entourage-subtitle">{{ sectionSubtitle }}</p>
+  </div>
+
+  <div class="entourage-content">
+    <div class="entourage-title-type">Groomsmen</div>
+    <div class="entourage-grid">
+      <div 
+        class="entourage-card" 
+        *ngFor="let member of groomsmen"
+        (click)="openMemberDetail(member)"
+      >
+        <div class="card-image-container">
+          <img 
+            [src]="member.imageUrl" 
+            [alt]="member.name"
+            class="member-image"
+            loading="lazy"
+          />
+          <div class="image-overlay">
+            <span class="view-details">View Details</span>
+          </div>
+        </div>
+        
+        <div class="card-content">
+          <h3 class="member-name">{{ member.name }}</h3>
+          <p class="member-role">{{ member.role }}</p>
+          <p class="member-relationship">{{ member.relationship }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="entourage-content">
+    <div class="entourage-title-type">Bridesmaid</div>
+    
+    <div class="matron-grid"><div 
+        class="entourage-card" 
+        *ngIf="matronOfHonor as matron"
+        (click)="openMemberDetail(matron)"
+      >
+        <div class="card-image-container">
+          <img 
+            [src]="matron.imageUrl" 
+            [alt]="matron.name"
+            class="member-image"
+            loading="lazy"
+          />
+          <div class="image-overlay">
+            <span class="view-details">View Details</span>
+          </div>
+        </div>
+        
+        <div class="card-content">
+          <h3 class="member-name">{{ matron.name }}</h3>
+          <p class="member-role">{{ matron.role }}</p>
+          <p class="member-relationship">{{ matron.relationship }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="entourage-grid">
+      <div 
+        class="entourage-card" 
+        *ngFor="let member of bridesmaid"
+        (click)="openMemberDetail(member)"
+      >
+        <div class="card-image-container">
+          <img 
+            [src]="member.imageUrl" 
+            [alt]="member.name"
+            class="member-image"
+            loading="lazy"
+          />
+          <div class="image-overlay">
+            <span class="view-details">View Details</span>
+          </div>
+        </div>
+        
+        <div class="card-content">
+          <h3 class="member-name">{{ member.name }}</h3>
+          <p class="member-role">{{ member.role }}</p>
+          <p class="member-relationship">{{ member.relationship }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Member Detail Modal -->
+  <div 
+    class="member-modal" 
+    *ngIf="selectedMember"
+    (click)="closeMemberDetail()"
+  >
+    <div 
+      class="modal-content" 
+      (click)="$event.stopPropagation()"
+    >
+      <button class="modal-close" (click)="closeMemberDetail()">×</button>
+      
+      <div class="modal-body">
+        <div class="modal-image-container">
+          <img 
+            [src]="selectedMember.imageUrl" 
+            [alt]="selectedMember.name"
+            class="modal-image"
+          />
+        </div>
+        
+        <div class="modal-details">
+          <h2 class="modal-name">{{ selectedMember.name }}</h2>
+          <p class="modal-role">{{ selectedMember.role }}</p>
+          <p class="modal-relationship">{{ selectedMember.relationship }}</p>
+          
+          <div class="modal-description">
+            <p>{{ selectedMember.description }}</p>
+          </div>
+          
+          <div class="modal-decoration">
+            <div class="decoration-line"></div>
+            <div class="decoration-dots">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+
+.welcome-area {
+    background: linear-gradient(rgb(46 64 151 / 55%), rgb(27 39 47 / 50%)), transparent url(../../../assets/image/welcome/Enhanced_222.jpg) no-repeat center center / cover fixed;
+    padding-top: 85px;
+    padding-bottom: 95px;
+}
+
+.welcome-content {
+    text-align: center;
+    padding: 100px 0;
+}
+
+.welcome-content h2 {
+    font-size: 55px;
+    color: #fff;
+    font-family: 'Great Vibes', cursive;
+}
+
+.welcome-content p {
+    font-size: 18px;
+    padding: 0 50px 10px;
+    color: #fff;
+    max-width: 700px;
+    margin: auto;
+}
+
+.btn a {
+    display: inline-block;
+    background: #fff;
+    color: #0B1D51;
+    padding: 10px 38px;
+    font-size: 18px;
+    transition: all .3s;
+    font-weight: 600;
+    border-radius: 40px;
+    text-decoration: none;
+}
+
+.btn a:hover {
+    background: #0B1D51;
+    color: #fff;
+}
