@@ -1,10 +1,27 @@
 {
   "hosting": {
-    "public": "dist/jlc-mpm-wedding/server",
+    "public": "dist/jlc-mpm-wedding",
     "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
+      "firebase-debug.log",
+      "firebase-debug.*.log",
+      "**/node_modules/**",
+      "**/.*"
+    ],
+    "predeploy": [
+      "npm install",
+      "npm run build:firebase"
+    ],
+    "cleanup": true,
+    "headers": [
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|ico|css|js|woff|woff2|ttf|eot)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }
+        ]
+      }
     ],
     "rewrites": [
       {

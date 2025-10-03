@@ -5,10 +5,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "postbuild": "cp src/_redirects dist/jlc-mpm-wedding/ || true",
+    "build:firebase": "ng build --configuration=firebase",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:JLC-MPM-Wedding": "node dist/jlc-mpm-wedding/server/server.mjs"
+    "deploy": "npm run build:firebase && firebase deploy",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "serve:hosting": "firebase serve --only hosting"
   },
   "private": true,
   "dependencies": {
