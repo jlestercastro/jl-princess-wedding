@@ -4,11 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
     "postbuild": "cp src/_redirects dist/jlc-mpm-wedding/ || true",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:JLC-MPM-Wedding": "node dist/jlc-mpm-wedding/server/server.mjs"
+    "serve:ssr:JLC-MPM-Wedding": "node dist/jlc-mpm-wedding/server/server.mjs",
+    "build": "ng build --configuration=production --base-href /jlc-mpm-wedding/",
+    "deploy": "ng build --configuration=production --base-href /jlc-mpm-wedding/ && npx gh-pages -d dist/jlc-mpm-wedding"
   },
   "private": true,
   "dependencies": {
