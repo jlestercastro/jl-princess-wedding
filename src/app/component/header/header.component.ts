@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, HostListener, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, HostListener, Inject, Input, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -14,7 +14,8 @@ import { RouterModule } from '@angular/router';
 })
 
 export class HeaderComponent implements OnInit {
-  isSticky = false;
+  @Input() isGallery: boolean = false;
+  isSticky: boolean = false;
   mobileMenuOpen = false;
   isMobileView = false;
 
@@ -24,27 +25,31 @@ export class HeaderComponent implements OnInit {
       label: 'Home'
     },
     {
-      link: '/couple',
+      link: '/gallery',
+      label: 'Gallery'
+    },
+    {
+      link: '#couple',
       label: 'Couple'
     },
     {
-      link: '/story',
+      link: '#story',
       label: 'Story'
     },
     {
-      link: '/people',
+      link: '#people',
       label: 'People'
     },
     {
-      link: '/event',
+      link: '#event',
       label: 'Event'
     },
     {
-      link: '/rsvp',
+      link: '#rsvp',
       label: 'Rsvp'
     },
     {
-      link: '/supplier',
+      link: '#supplier',
       label: 'Supplier'
     },
   ]
@@ -74,7 +79,11 @@ export class HeaderComponent implements OnInit {
   }
 
   checkScroll() {
-    this.isSticky = window.pageYOffset > 100;
+    if (this.isGallery) {
+      this.isSticky = true;
+    } else {
+      this.isSticky = window.pageYOffset > 100;
+    }
   }
 
   toggleMobileMenu() {
@@ -86,8 +95,16 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  closeMobileMenu() {
+  peopleDropdownOpen: boolean = false;
+
+  // Add this method to your component
+  togglePeopleDropdown(): void {
+    this.peopleDropdownOpen = !this.peopleDropdownOpen;
+  }
+
+  // Update your closeMobileMenu method to also close the dropdown
+  closeMobileMenu(): void {
     this.mobileMenuOpen = false;
-    document.body.style.overflow = '';
+    this.peopleDropdownOpen = false;
   }
 }

@@ -1,53 +1,140 @@
-<div class="couple-area">
-  <div class="container" id="couple">
-    <div class="col-l2">
-      <div class="section-title text-center">
-        <h2>Happy Couple</h2>
-        <div class="divider"></div>
+<div id="couple" class="wedding-couple">
+  <div class="couple-container">
+    <!-- Header Section -->
+    <header class="couple-header">
+      <h1 class="couple-title">The Happy Couple</h1>
+      <p class="couple-subtitle">Two hearts, one soul, forever together</p>
+      <div class="header-decoration">
+        <div class="decoration-line"></div>
+        <i class="bi bi-heart-fill"></i>
+        <div class="decoration-line"></div>
+      </div>
+    </header>
+
+    <!-- Couple Photos Section -->
+    <div class="couple-photos">
+      <div class="individual-photos">
+        <!-- Bride Photo -->
+        <div class="photo-card bride-photo" (click)="openLightbox('bride')">
+          <div class="photo-container">
+            <img [src]="bride.photo" [alt]="bride.name" class="photo-image">
+            <div class="photo-overlay">
+              <i class="bi bi-zoom-in"></i>
+            </div>
+          </div>
+          <div class="photo-info">
+            <h3 class="person-name">{{ bride.name }}</h3>
+            <p class="person-role">The Bride</p>
+          </div>
+        </div>
+
+        <!-- Couple Together -->
+        <div class="couple-together">
+          <div class="together-photo" (click)="openLightbox('together')">
+            <img [src]="togetherPhoto" alt="Couple Together" class="together-image">
+            <div class="photo-overlay">
+              <i class="bi bi-zoom-in"></i>
+            </div>
+          </div>
+          <div class="together-label">
+            <i class="bi bi-heart"></i>
+            <span>Together Since {{ togetherSince }}</span>
+          </div>
+        </div>
+
+        <!-- Groom Photo -->
+        <div class="photo-card groom-photo" (click)="openLightbox('groom')">
+          <div class="photo-container">
+            <img [src]="groom.photo" [alt]="groom.name" class="photo-image">
+            <div class="photo-overlay">
+              <i class="bi bi-zoom-in"></i>
+            </div>
+          </div>
+          <div class="photo-info">
+            <h3 class="person-name">{{ groom.name }}</h3>
+            <p class="person-role">The Groom</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="couple-item">
-      <div class="row">
-        <div class="col-lg-5 col-md-12 col-sm-12 couple-single">
-          <div class="couple-img">
-            <img src="../../../assets/image/couple/Enhanced_257_2.jpg" alt="">
+
+    <!-- Couple Details Section -->
+    <div class="couple-details">
+      <div class="details-grid">
+        <!-- Bride Details -->
+        <div class="detail-card bride-details">
+          <div class="detail-header">
+            <i class="bi bi-flower1"></i>
+            <h3>About {{ bride.name }}</h3>
           </div>
-          <div class="couple-content  mt--30">
-            <h4>May Princess Rago Manalo</h4>
-            <p>Hi I am Princess.</p>
-          </div>
-          <div class="social-icon">
-            <ul class="d-flex">
-              <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
-              <li><a href="#"><i class="fa-brands fa-square-x-twitter"></i></a></li>
-              <li><a href="#"><i class="fa-brands fa-square-google-plus"></i></a></li>
-              <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
-            </ul>
+          <div class="detail-content">
+            <p class="detail-bio">{{ bride.bio }}</p>
+            <div class="detail-facts">
+              <div class="fact-item" *ngFor="let fact of bride.facts">
+                <i class="bi" [class]="fact.icon"></i>
+                <span>{{ fact.label }}: {{ fact.value }}</span>
+              </div>
+            </div>
+            <div class="detail-quote" *ngIf="bride.quote">
+              <i class="bi bi-quote"></i>
+              <p>"{{ bride.quote }}"</p>
+            </div>
           </div>
         </div>
-        <div class="col-lg-2 couple-single">
-          <div class="couple-shape">
-            <img src="../../../assets/image/couple2.png" alt="">
+
+        <!-- Groom Details -->
+        <div class="detail-card groom-details">
+          <div class="detail-header">
+            <i class="bi bi-cup-straw"></i>
+            <h3>About {{ groom.name }}</h3>
           </div>
-        </div>
-        <div class="col-lg-5 col-md-12 col-sm-12 couple-single md-0">
-          <div class="couple-img">
-            <img src="../../../assets/image/couple/Enhanced_257_1.jpg" alt="">
-          </div>
-          <div class="couple-content mt--30">
-            <h4>Jun Lester Lastimosa Castro</h4>
-            <p>Hi I am JL.</p>
-          </div>
-          <div class="social-icon">
-            <ul class="d-flex">
-              <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
-              <li><a href="#"><i class="fa-brands fa-square-x-twitter"></i></a></li>
-              <li><a href="#"><i class="fa-brands fa-square-google-plus"></i></a></li>
-              <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
-            </ul>
+          <div class="detail-content">
+            <p class="detail-bio">{{ groom.bio }}</p>
+            <div class="detail-facts">
+              <div class="fact-item" *ngFor="let fact of groom.facts">
+                <i class="bi" [class]="fact.icon"></i>
+                <span>{{ fact.label }}: {{ fact.value }}</span>
+              </div>
+            </div>
+            <div class="detail-quote" *ngIf="groom.quote">
+              <i class="bi bi-quote"></i>
+              <p>"{{ groom.quote }}"</p>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Love Story Section - Static Timeline -->
+    <div id="story" class="love-story-section">
+      <div class="section-header">
+        <h3>Our Love Story</h3>
+        <p>From the first hello to forever</p>
+      </div>
+
+      <div class="static-timeline">
+        <div class="timeline-track">
+          <div class="timeline-item" *ngFor="let event of loveStory; let i = index">
+            <div class="timeline-marker">
+              <i class="bi" [class]="getTimelineIcon(i)"></i>
+            </div>
+            <div class="timeline-content">
+              <h4>{{ event.date }}</h4>
+              <p>{{ event.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" [class.active]="lightboxActive" (click)="closeLightbox()">
+    <div class="lightbox-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeLightbox()">
+        <i class="bi bi-x"></i>
+      </button>
+      <img [src]="currentPhoto" class="lightbox-image">
     </div>
   </div>
 </div>

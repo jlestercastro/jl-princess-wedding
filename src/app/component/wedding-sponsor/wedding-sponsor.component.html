@@ -1,0 +1,148 @@
+<div id="sponsor" class="wedding-sponsors">
+  <div class="sponsors-container">
+    <!-- Header Section -->
+    <header class="sponsors-header">
+      <h1 class="sponsors-title">Our Principal Sponsors</h1>
+      <p class="sponsors-subtitle">With heartfelt gratitude to our beloved sponsors who guide us with their wisdom and
+        love</p>
+      <div class="header-decoration">
+        <div class="decoration-line"></div>
+        <i class="bi bi-heart-fill"></i>
+        <div class="decoration-line"></div>
+      </div>
+    </header>
+
+    <!-- Sponsors Grid -->
+    <div class="sponsors-grid">
+      <div class="sponsor-card" *ngFor="let sponsor of sponsors; let i = index" [class.featured]="sponsor.featured"
+        (click)="openSponsorModal(i)">
+
+        <!-- Sponsor Photo -->
+        <div class="sponsor-photo">
+          <div class="photo-container">
+            <img [src]="sponsor.photo" [alt]="sponsor.name" class="photo-image" loading="lazy"
+              (error)="handleImageError($event, sponsor)">
+            <div class="photo-overlay">
+              <i class="bi bi-info-circle"></i>
+            </div>
+          </div>
+
+          <!-- Sponsor Badge -->
+          <div class="sponsor-badge" *ngIf="sponsor.role === 'Principal Sponsor'">
+            <i class="bi bi-star-fill"></i>
+            Principal
+          </div>
+        </div>
+
+        <!-- Sponsor Info -->
+        <div class="sponsor-info" (click)="openSponsorModal(i)">
+          <h3 class="sponsor-name">{{ sponsor.name }}</h3>
+          <p class="sponsor-role">{{ sponsor.role }}</p>
+
+          <!-- Relationship -->
+          <div class="sponsor-relationship" *ngIf="sponsor.relationship">
+            <i class="bi bi-heart"></i>
+            <span>{{ sponsor.relationship }}</span>
+          </div>
+
+          <!-- Quick Message -->
+          <p class="sponsor-message" *ngIf="sponsor.shortMessage">
+            "{{ sponsor.shortMessage }}"
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Special Thanks Section -->
+    <div class="special-thanks">
+      <div class="thanks-content">
+        <i class="bi bi-flower1"></i>
+        <h3>Special Thanks</h3>
+        <p>We are deeply grateful to all our principal sponsors for their unwavering support, guidance, and blessings on
+          our journey together. Your presence in our lives means more than words can express.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sponsor Modal -->
+  <div class="sponsor-modal" [class.active]="modalActive" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()" *ngIf="selectedSponsor">
+      <!-- Close Button -->
+      <button class="modal-close" (click)="closeModal()">
+        <i class="bi bi-x"></i>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-photo">
+          <img [src]="selectedSponsor.photo" [alt]="selectedSponsor.name">
+        </div>
+        <div class="modal-title">
+          <h2>{{ selectedSponsor.name }}</h2>
+          <p class="modal-role">{{ selectedSponsor.role }}</p>
+          <div class="modal-relationship" *ngIf="selectedSponsor.relationship">
+            <i class="bi bi-heart-fill"></i>
+            {{ selectedSponsor.relationship }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <!-- Bio -->
+        <!-- <div class="modal-section" *ngIf="selectedSponsor.bio">
+          <h4>About</h4>
+          <p>{{ selectedSponsor.bio }}</p>
+        </div> -->
+
+        <!-- Message -->
+        <!-- <div class="modal-section" *ngIf="selectedSponsor.message">
+          <h4>Message to the Couple</h4>
+          <p class="sponsor-message">"{{ selectedSponsor.message }}"</p>
+        </div> -->
+
+        <!-- Details -->
+        <!-- <div class="modal-details">
+          <div class="detail-item" *ngIf="selectedSponsor.yearsKnown">
+            <i class="bi bi-clock"></i>
+            <div>
+              <span class="detail-label">Known For</span>
+              <span class="detail-value">{{ selectedSponsor.yearsKnown }} years</span>
+            </div>
+          </div>
+
+          <div class="detail-item" *ngIf="selectedSponsor.funFact">
+            <i class="bi bi-lightbulb"></i>
+            <div>
+              <span class="detail-label">Fun Fact</span>
+              <span class="detail-value">{{ selectedSponsor.funFact }}</span>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- Advice -->
+        <div class="modal-section" *ngIf="selectedSponsor.advice">
+          <h4>Marriage Advice</h4>
+          <p class="advice-text">"{{ selectedSponsor.advice }}"</p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button class="nav-btn prev" (click)="previousSponsor()" *ngIf="selectedSponsorIndex > 0">
+          <i class="bi bi-chevron-left"></i>
+          Previous
+        </button>
+
+        <div class="modal-counter">
+          {{ selectedSponsorIndex + 1 }} / {{ sponsors.length }}
+        </div>
+
+        <button class="nav-btn next" (click)="nextSponsor()" *ngIf="selectedSponsorIndex < sponsors.length - 1">
+          Next
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

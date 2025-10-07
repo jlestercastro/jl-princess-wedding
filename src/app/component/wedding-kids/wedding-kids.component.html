@@ -1,0 +1,374 @@
+<div id="little-helper" class="wedding-helpers">
+  <div class="helpers-container">
+    <!-- Header Section -->
+    <header class="helpers-header">
+      <h1 class="helpers-title">Our Little Helpers</h1>
+      <p class="helpers-subtitle">The adorable stars who will make our wedding day even more special</p>
+      <div class="header-decoration">
+        <div class="decoration-line"></div>
+        <i class="bi bi-heart-fill"></i>
+        <div class="decoration-line"></div>
+      </div>
+    </header>
+
+    <!-- Combined Little Wedding Party Section -->
+    <section class="helpers-section combined-section" *ngIf="littleGrooms.length > 0 || littleBrides.length > 0">
+      <h2 class="section-title">
+        <i class="bi bi-people-fill"></i>
+        Little Wedding Party
+      </h2>
+
+      <div class="combined-row">
+        <!-- Little Grooms Column -->
+        <div class="helper-group" *ngIf="littleGrooms.length > 0">
+          <h3 class="group-title">
+            <i class="bi bi-gender-male"></i>
+            Little Groom
+          </h3>
+          <div class="helpers-grid">
+            <div class="helper-card" *ngFor="let helper of littleGrooms; let i = index"
+              [class.featured]="helper.featured" (click)="openHelperModal(i, 'littleGroom')">
+
+              <!-- Helper Photo -->
+              <div class="helper-photo">
+                <div class="photo-container">
+                  <img [src]="helper.photo" [alt]="helper.name" class="photo-image" loading="lazy"
+                    (error)="handleImageError($event, helper)">
+                  <div class="photo-overlay">
+                    <i class="bi bi-info-circle"></i>
+                  </div>
+                </div>
+
+                <!-- Age Badge -->
+                <div class="helper-badge" *ngIf="helper.age">
+                  <i class="bi bi-balloon"></i>
+                  {{ helper.age }} years old
+                </div>
+
+                <!-- Featured Badge -->
+                <div class="featured-badge" *ngIf="helper.featured">
+                  <i class="bi bi-star-fill"></i>
+                  Featured
+                </div>
+              </div>
+
+              <!-- Helper Info -->
+              <div class="helper-info">
+                <h3 class="helper-name">{{ helper.name }}</h3>
+                <p class="helper-role">{{ helper.role }}</p>
+
+                <!-- Relationship -->
+                <div class="helper-relationship" *ngIf="helper.relationship">
+                  <i class="bi bi-person-heart"></i>
+                  <span>{{ helper.relationship }}</span>
+                </div>
+
+                <!-- Quick Message -->
+                <p class="helper-message" *ngIf="helper.shortMessage">
+                  "{{ helper.shortMessage }}"
+                </p>
+
+                <!-- Age -->
+                <div class="helper-age" *ngIf="helper.age">
+                  <i class="bi bi-cake"></i>
+                  <span>{{ helper.age }} years old</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Little Brides Column -->
+        <div class="helper-group" *ngIf="littleBrides.length > 0">
+          <h3 class="group-title">
+            <i class="bi bi-gender-female"></i>
+            Little Bride
+          </h3>
+          <div class="helpers-grid">
+            <div class="helper-card" *ngFor="let helper of littleBrides; let i = index"
+              [class.featured]="helper.featured" (click)="openHelperModal(i, 'littleBride')">
+
+              <!-- Helper Photo -->
+              <div class="helper-photo">
+                <div class="photo-container">
+                  <img [src]="helper.photo" [alt]="helper.name" class="photo-image" loading="lazy"
+                    (error)="handleImageError($event, helper)">
+                  <div class="photo-overlay">
+                    <i class="bi bi-info-circle"></i>
+                  </div>
+                </div>
+
+                <!-- Age Badge -->
+                <div class="helper-badge" *ngIf="helper.age">
+                  <i class="bi bi-balloon"></i>
+                  {{ helper.age }} years old
+                </div>
+
+                <!-- Featured Badge -->
+                <div class="featured-badge" *ngIf="helper.featured">
+                  <i class="bi bi-star-fill"></i>
+                  Featured
+                </div>
+              </div>
+
+              <!-- Helper Info -->
+              <div class="helper-info">
+                <h3 class="helper-name">{{ helper.name }}</h3>
+                <p class="helper-role">{{ helper.role }}</p>
+
+                <!-- Relationship -->
+                <div class="helper-relationship" *ngIf="helper.relationship">
+                  <i class="bi bi-person-heart"></i>
+                  <span>{{ helper.relationship }}</span>
+                </div>
+
+                <!-- Quick Message -->
+                <p class="helper-message" *ngIf="helper.shortMessage">
+                  "{{ helper.shortMessage }}"
+                </p>
+
+                <!-- Age -->
+                <div class="helper-age" *ngIf="helper.age">
+                  <i class="bi bi-cake"></i>
+                  <span>{{ helper.age }} years old</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bearer Team Section -->
+    <section class="helpers-section" *ngIf="bearers.length > 0">
+      <h2 class="section-title">
+        <i class="bi {{ getCategoryIcon('bearer') }}"></i>
+        {{ getCategoryTitle('bearer') }}
+      </h2>
+      <div class="helpers-grid">
+        <div 
+          class="helper-card" 
+          *ngFor="let helper of bearers; let i = index"
+          [class.featured]="helper.featured"
+          (click)="openHelperModal(i, 'bearer')">
+          
+          <!-- Helper Photo -->
+          <div class="helper-photo">
+            <div class="photo-container">
+              <img 
+                [src]="helper.photo" 
+                [alt]="helper.name" 
+                class="photo-image"
+                loading="lazy"
+                (error)="handleImageError($event, helper)">
+              <div class="photo-overlay">
+                <i class="bi bi-info-circle"></i>
+              </div>
+            </div>
+            
+            <!-- Age Badge -->
+            <div class="helper-badge" *ngIf="helper.age">
+              <i class="bi bi-balloon"></i>
+              {{ helper.age }} years old
+            </div>
+
+            <!-- Featured Badge -->
+            <div class="featured-badge" *ngIf="helper.featured">
+              <i class="bi bi-star-fill"></i>
+              Featured
+            </div>
+          </div>
+
+          <!-- Helper Info -->
+          <div class="helper-info">
+            <h3 class="helper-name">{{ helper.name }}</h3>
+            <p class="helper-role">{{ helper.role }}</p>
+            
+            <!-- Relationship -->
+            <div class="helper-relationship" *ngIf="helper.relationship">
+              <i class="bi bi-person-heart"></i>
+              <span>{{ helper.relationship }}</span>
+            </div>
+
+            <!-- Quick Message -->
+            <p class="helper-message" *ngIf="helper.shortMessage">
+              "{{ helper.shortMessage }}"
+            </p>
+
+            <!-- Age -->
+            <div class="helper-age" *ngIf="helper.age">
+              <i class="bi bi-cake"></i>
+              <span>{{ helper.age }} years old</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flower Girls Section -->
+    <section class="helpers-section" *ngIf="flowerGirls.length > 0">
+      <h2 class="section-title">
+        <i class="bi {{ getCategoryIcon('flowerGirl') }}"></i>
+        {{ getCategoryTitle('flowerGirl') }}
+      </h2>
+      <div class="helpers-grid">
+        <div 
+          class="helper-card" 
+          *ngFor="let helper of flowerGirls; let i = index"
+          [class.featured]="helper.featured"
+          (click)="openHelperModal(i, 'flowerGirl')">
+          
+          <!-- Helper Photo -->
+          <div class="helper-photo">
+            <div class="photo-container">
+              <img 
+                [src]="helper.photo" 
+                [alt]="helper.name" 
+                class="photo-image"
+                loading="lazy"
+                (error)="handleImageError($event, helper)">
+              <div class="photo-overlay">
+                <i class="bi bi-info-circle"></i>
+              </div>
+            </div>
+            
+            <!-- Age Badge -->
+            <div class="helper-badge" *ngIf="helper.age">
+              <i class="bi bi-balloon"></i>
+              {{ helper.age }} years old
+            </div>
+
+            <!-- Featured Badge -->
+            <div class="featured-badge" *ngIf="helper.featured">
+              <i class="bi bi-star-fill"></i>
+              Featured
+            </div>
+          </div>
+
+          <!-- Helper Info -->
+          <div class="helper-info">
+            <h3 class="helper-name">{{ helper.name }}</h3>
+            <p class="helper-role">{{ helper.role }}</p>
+            
+            <!-- Relationship -->
+            <div class="helper-relationship" *ngIf="helper.relationship">
+              <i class="bi bi-person-heart"></i>
+              <span>{{ helper.relationship }}</span>
+            </div>
+
+            <!-- Quick Message -->
+            <p class="helper-message" *ngIf="helper.shortMessage">
+              "{{ helper.shortMessage }}"
+            </p>
+
+            <!-- Age -->
+            <div class="helper-age" *ngIf="helper.age">
+              <i class="bi bi-cake"></i>
+              <span>{{ helper.age }} years old</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Special Message Section -->
+    <div class="special-message">
+      <div class="message-content">
+        <i class="bi bi-stars"></i>
+        <h3>Our Little Stars</h3>
+        <p>These wonderful children bring so much joy and innocence to our special day. Their excitement and pure hearts
+          remind us of the simple, beautiful moments that make life magical. We're so grateful to have them as part of
+          our wedding celebration.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Helper Modal -->
+  <div class="helper-modal" [class.active]="modalActive" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()" *ngIf="selectedHelper">
+      <!-- Close Button -->
+      <button class="modal-close" (click)="closeModal()">
+        <i class="bi bi-x"></i>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-photo">
+          <img [src]="selectedHelper.photo" [alt]="selectedHelper.name"
+            (error)="handleImageError($event, selectedHelper)">
+        </div>
+        <div class="modal-title">
+          <h2>{{ selectedHelper.name }}</h2>
+          <p class="modal-role">{{ selectedHelper.role }}</p>
+          <div class="modal-relationship" *ngIf="selectedHelper.relationship">
+            <i class="bi bi-person-heart-fill"></i>
+            {{ selectedHelper.relationship }}
+          </div>
+          <div class="modal-age" *ngIf="selectedHelper.age">
+            <i class="bi bi-balloon-fill"></i>
+            {{ selectedHelper.age }} years old
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <!-- Bio -->
+        <div class="modal-section" *ngIf="selectedHelper.bio">
+          <h4>About {{ selectedHelper.name.split(' ')[0] }}</h4>
+          <p>{{ selectedHelper.bio }}</p>
+        </div>
+
+        <!-- Message -->
+        <div class="modal-section" *ngIf="selectedHelper.message">
+          <h4>{{ selectedHelper.name.split(' ')[0] }}'s Message</h4>
+          <p class="helper-message">"{{ selectedHelper.message }}"</p>
+        </div>
+
+        <!-- Details -->
+        <div class="modal-details">
+          <div class="detail-item" *ngIf="selectedHelper.age">
+            <i class="bi bi-cake"></i>
+            <div>
+              <span class="detail-label">Age</span>
+              <span class="detail-value">{{ selectedHelper.age }} years old</span>
+            </div>
+          </div>
+
+          <div class="detail-item" *ngIf="selectedHelper.funFact">
+            <i class="bi bi-lightbulb"></i>
+            <div>
+              <span class="detail-label">Fun Fact</span>
+              <span class="detail-value">{{ selectedHelper.funFact }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Special Note -->
+        <div class="modal-section special-note" *ngIf="selectedHelper.role">
+          <h4>Special Role</h4>
+          <p class="role-description">{{ selectedHelper.name.split(' ')[0] }} will be our {{
+            selectedHelper.role.toLowerCase() }} during the ceremony, helping to make our day even more magical and
+            memorable.</p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button class="nav-btn prev" (click)="previousHelper()" *ngIf="selectedHelperIndex > 0">
+          <i class="bi bi-chevron-left"></i>
+          Previous
+        </button>
+
+        <div class="modal-counter">
+          {{ selectedHelperIndex + 1 }} / {{ currentMembersCount }}
+        </div>
+
+        <button class="nav-btn next" (click)="nextHelper()" *ngIf="selectedHelperIndex < currentMembersCount - 1">
+          Next
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,181 @@
+<!-- wedding-guardian.component.html -->
+<div id="guardian" class="wedding-guardian">
+  <div class="guardian-container">
+    <!-- Header Section -->
+    <header class="guardian-header">
+      <h1 class="guardian-title">Our Guardians</h1>
+      <p class="guardian-subtitle">With heartfelt gratitude to the loving guardians who have guided us with their wisdom, love, and blessings throughout our lives</p>
+      <div class="header-decoration">
+        <div class="decoration-line"></div>
+        <i class="bi bi-heart-fill"></i>
+        <div class="decoration-line"></div>
+      </div>
+    </header>
+
+    <!-- Parents Section -->
+    <section class="guardian-section" *ngIf="parents.length > 0">
+      <h2 class="section-title">
+        <i class="bi {{ getCategoryIcon('parents') }}"></i>
+        {{ getCategoryTitle('parents') }}
+      </h2>
+      <div class="guardian-grid">
+        <div 
+          class="guardian-card" 
+          *ngFor="let guardian of parents; let i = index"
+          [class.featured]="guardian.featured"
+          (click)="openGuardianModal(i, 'parents')">
+          
+          <!-- Guardian Photo -->
+          <div class="guardian-photo">
+            <div class="photo-container">
+              <img 
+                [src]="guardian.photo" 
+                [alt]="guardian.name" 
+                class="photo-image"
+                loading="lazy"
+                (error)="handleImageError($event, guardian)">
+              <div class="photo-overlay">
+                <i class="bi bi-info-circle"></i>
+              </div>
+            </div>
+            
+            <!-- Role Badge -->
+            <div class="guardian-badge">
+              <i class="bi bi-award-fill"></i>
+              {{ guardian.role }}
+            </div>
+
+            <!-- Featured Badge -->
+            <div class="featured-badge" *ngIf="guardian.featured">
+              <i class="bi bi-star-fill"></i>
+              Featured
+            </div>
+          </div>
+
+          <!-- Guardian Info -->
+          <div class="guardian-info">
+            <h3 class="guardian-name">{{ guardian.name }}</h3>
+            
+            <!-- Relationship -->
+            <div class="guardian-relationship" *ngIf="guardian.relationship">
+              <i class="bi bi-person-heart"></i>
+              <span>{{ guardian.relationship }}</span>
+            </div>
+
+            <!-- Quick Message -->
+            <p class="guardian-message" *ngIf="guardian.shortMessage">
+              "{{ guardian.shortMessage }}"
+            </p>
+
+            <!-- Years Known -->
+            <div class="guardian-years" *ngIf="guardian.yearsKnown">
+              <i class="bi bi-clock-history"></i>
+              <span>Known for {{ guardian.yearsKnown }} years</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Special Thanks Section -->
+    <div class="special-thanks">
+      <div class="thanks-content">
+        <i class="bi bi-hearts"></i>
+        <h3>Eternal Gratitude</h3>
+        <p>To our beloved guardians - your unwavering love, guidance, and blessings have shaped us into who we are today. Your wisdom lights our path, your prayers strengthen our journey, and your love fills our hearts. Thank you for being our pillars of strength and our guiding stars.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guardian Modal -->
+  <div class="guardian-modal" [class.active]="modalActive" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()" *ngIf="selectedGuardian">
+      <!-- Close Button -->
+      <button class="modal-close" (click)="closeModal()">
+        <i class="bi bi-x"></i>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-photo">
+          <img [src]="selectedGuardian.photo" [alt]="selectedGuardian.name" (error)="handleImageError($event, selectedGuardian)">
+        </div>
+        <div class="modal-title">
+          <h2>{{ selectedGuardian.name }}</h2>
+          <p class="modal-role">{{ selectedGuardian.role }}</p>
+          <div class="modal-relationship" *ngIf="selectedGuardian.relationship">
+            <i class="bi bi-person-heart-fill"></i>
+            {{ selectedGuardian.relationship }}
+          </div>
+          <div class="modal-years" *ngIf="selectedGuardian.yearsKnown">
+            <i class="bi bi-clock-fill"></i>
+            Known for {{ selectedGuardian.yearsKnown }} years
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <!-- Bio -->
+        <div class="modal-section" *ngIf="selectedGuardian.bio">
+          <h4>About Our Guardians</h4>
+          <p>{{ selectedGuardian.bio }}</p>
+        </div>
+
+        <!-- Message -->
+        <div class="modal-section" *ngIf="selectedGuardian.message">
+          <h4>Their Message to Us</h4>
+          <p class="guardian-message">"{{ selectedGuardian.message }}"</p>
+        </div>
+
+        <!-- Details -->
+        <div class="modal-details">
+          <div class="detail-item" *ngIf="selectedGuardian.yearsKnown">
+            <i class="bi bi-clock"></i>
+            <div>
+              <span class="detail-label">Years Known</span>
+              <span class="detail-value">{{ selectedGuardian.yearsKnown }} years</span>
+            </div>
+          </div>
+
+          <div class="detail-item" *ngIf="selectedGuardian.funFact">
+            <i class="bi bi-lightbulb"></i>
+            <div>
+              <span class="detail-label">Special Memory</span>
+              <span class="detail-value">{{ selectedGuardian.funFact }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Advice -->
+        <div class="modal-section" *ngIf="selectedGuardian.advice">
+          <h4>Their Wisdom</h4>
+          <p class="advice-text">"{{ selectedGuardian.advice }}"</p>
+        </div>
+
+        <!-- Special Note -->
+        <div class="modal-section special-note">
+          <h4>Our Gratitude</h4>
+          <p class="gratitude-text">We are eternally grateful for {{ selectedGuardian.name.split(' ')[0] }}'s love, guidance, and blessings throughout our lives. Their support means the world to us as we begin this new chapter together.</p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button class="nav-btn prev" (click)="previousGuardian()" *ngIf="selectedGuardianIndex > 0">
+          <i class="bi bi-chevron-left"></i>
+          Previous
+        </button>
+        
+        <div class="modal-counter">
+          {{ selectedGuardianIndex + 1 }} / {{ currentMembersCount }}
+        </div>
+        
+        <button class="nav-btn next" (click)="nextGuardian()" *ngIf="selectedGuardianIndex < currentMembersCount - 1">
+          Next
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

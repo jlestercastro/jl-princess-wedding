@@ -1,0 +1,171 @@
+<!-- wedding-when-where.component.html -->
+<div id="event" class="wedding-when-where">
+  <div class="container">
+    <!-- Header Section -->
+    <header class="section-header">
+      <h1 class="section-title">When & Where</h1>
+      <p class="section-subtitle">Join us in celebrating our special day at these beautiful locations</p>
+      <div class="header-decoration">
+        <div class="decoration-line"></div>
+        <i class="bi bi-heart-fill"></i>
+        <div class="decoration-line"></div>
+      </div>
+    </header>
+
+    <!-- Main Events -->
+    <section class="events-section">
+      <div class="events-grid">
+        <div 
+          class="event-card" 
+          *ngFor="let event of featuredEvents"
+          [class.featured]="event.featured">
+          
+          <div class="event-header">
+            <div class="event-icon">
+              <i class="bi {{ event.icon }}"></i>
+            </div>
+            <div class="event-title-content">
+              <h2 class="event-title">{{ event.title }}</h2>
+              <div class="event-badge" *ngIf="event.featured">
+                <i class="bi bi-star-fill"></i>
+                Main Event
+              </div>
+            </div>
+          </div>
+
+          <div class="event-details">
+            <!-- Date & Time -->
+            <div class="detail-group">
+              <div class="detail-item">
+                <i class="bi bi-calendar-event"></i>
+                <div class="detail-content">
+                  <span class="detail-label">Date</span>
+                  <span class="detail-value">{{ event.date }}</span>
+                </div>
+              </div>
+              <div class="detail-item">
+                <i class="bi bi-clock"></i>
+                <div class="detail-content">
+                  <span class="detail-label">Time</span>
+                  <span class="detail-value">{{ event.time }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Venue -->
+            <div class="detail-item venue-item">
+              <i class="bi bi-geo-alt"></i>
+              <div class="detail-content">
+                <span class="detail-label">Venue</span>
+                <span class="detail-value venue-name">{{ event.venue }}</span>
+                <span class="detail-value venue-address">{{ event.address }}</span>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="event-description">
+              <p>{{ event.description }}</p>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="additional-info">
+              <div class="info-item" *ngIf="event.dressCode">
+                <i class="bi bi-suit-club"></i>
+                <span><strong>Dress Code:</strong> {{ event.dressCode }}</span>
+              </div>
+              <div class="info-item" *ngIf="event.note">
+                <i class="bi bi-info-circle"></i>
+                <span><strong>Note:</strong> {{ event.note }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="event-actions">
+            <button class="btn btn-map" (click)="openMap(event)">
+              <i class="bi bi-map"></i>
+              View on Map
+            </button>
+            <button class="btn btn-calendar" (click)="addToCalendar(event)">
+              <i class="bi bi-calendar-plus"></i>
+              Add to Calendar
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Other Events -->
+    <section class="other-events-section" *ngIf="otherEvents.length > 0">
+      <h2 class="section-subtitle">Other Events</h2>
+      <div class="other-events-grid">
+        <div 
+          class="event-card small" 
+          *ngFor="let event of otherEvents">
+          
+          <div class="event-header">
+            <div class="event-icon">
+              <i class="bi {{ event.icon }}"></i>
+            </div>
+            <h3 class="event-title">{{ event.title }}</h3>
+          </div>
+
+          <div class="event-details">
+            <div class="detail-item">
+              <i class="bi bi-calendar-event"></i>
+              <span>{{ event.date }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="bi bi-clock"></i>
+              <span>{{ event.time }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="bi bi-geo-alt"></i>
+              <span>{{ event.venue }}</span>
+            </div>
+          </div>
+
+          <div class="event-actions">
+            <button class="btn btn-outline" (click)="openMap(event)">
+              <i class="bi bi-map"></i>
+              Directions
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Travel Information -->
+    <section class="travel-section">
+      <h2 class="section-subtitle">Travel & Accommodations</h2>
+      <div class="travel-grid">
+        <div class="travel-card" *ngFor="let tip of travelTips">
+          <div class="travel-icon">
+            <i class="bi {{ tip.icon }}"></i>
+          </div>
+          <div class="travel-content">
+            <h3>{{ tip.title }}</h3>
+            <p>{{ tip.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="rsvp-section">
+      <div class="rsvp-card">
+        <div class="rsvp-icon">
+          <i class="bi bi-envelope-heart"></i>
+        </div>
+        <div class="rsvp-content">
+          <h2>Kindly Respond</h2>
+          <p>Please RSVP by October 20, 2025 so we can finalize our arrangements. We look forward to celebrating with you!</p>
+          <button class="btn btn-primary">
+            <i class="bi bi-reply-fill"></i>
+            RSVP Now
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

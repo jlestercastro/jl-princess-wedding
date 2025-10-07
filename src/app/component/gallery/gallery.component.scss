@@ -1,0 +1,649 @@
+// Color Variables
+$navy-blue: #0a2463;
+$navy-light: #1a337c;
+$white: #ffffff;
+$off-white: #f8f9fa;
+$gold: #d4af37;
+$text-dark: #2c3e50;
+$text-light: #7f8c8d;
+$border-light: #e9ecef;
+
+// Typography
+$font-primary: 'Playfair Display', serif;
+$font-secondary: 'Montserrat', sans-serif;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin responsive-font($desktop, $tablet, $mobile) {
+  font-size: $desktop;
+  
+  @media (max-width: 1024px) {
+    font-size: $tablet;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: $mobile;
+  }
+}
+
+@mixin card-shadow {
+  box-shadow: 0 4px 20px rgba(10, 36, 99, 0.08);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 8px 30px rgba(10, 36, 99, 0.12);
+    transform: translateY(-2px);
+  }
+}
+
+.wedding-gallery {
+  background: linear-gradient(135deg, $off-white 0%, $white 100%);
+  padding: 4rem 2rem;
+  font-family: $font-secondary;
+  color: $text-dark;
+  min-height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 3rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+  }
+
+  .gallery-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  // Header Styles
+  .gallery-header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    .gallery-title {
+      @include responsive-font(3rem, 2.5rem, 2rem);
+      font-family: $font-primary;
+      color: $navy-blue;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      line-height: 1.2;
+    }
+
+    .gallery-subtitle {
+      @include responsive-font(1.3rem, 1.2rem, 1.1rem);
+      color: $text-light;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      line-height: 1.4;
+    }
+
+    .header-decoration {
+      @include flex-center;
+      gap: 1.5rem;
+      max-width: 300px;
+      margin: 0 auto;
+
+      .decoration-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, $navy-blue 50%, transparent 100%);
+      }
+
+      i {
+        color: $gold;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  // Filter Tabs
+  .gallery-filters {
+    margin-bottom: 3rem;
+    overflow-x: auto;
+
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      padding: 0.5rem;
+
+      @media (max-width: 768px) {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+      }
+
+      .filter-tab {
+        background: $white;
+        border: 2px solid lighten($navy-blue, 60%);
+        border-radius: 25px;
+        padding: 0.75rem 1.5rem;
+        color: $text-dark;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        @include flex-center;
+        gap: 0.5rem;
+        font-weight: 500;
+        white-space: nowrap;
+        flex-shrink: 0;
+
+        &:hover {
+          border-color: $navy-blue;
+          color: $navy-blue;
+        }
+
+        &.active {
+          background: $navy-blue;
+          border-color: $navy-blue;
+          color: $white;
+        }
+
+        i {
+          font-size: 1.1rem;
+        }
+
+        @media (max-width: 480px) {
+          padding: 0.6rem 1.2rem;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  // Gallery Grid
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 4/3;
+      @include card-shadow;
+
+      &.featured {
+        grid-column: span 2;
+        grid-row: span 2;
+        aspect-ratio: 1;
+
+        @media (max-width: 768px) {
+          grid-column: span 1;
+          grid-row: span 1;
+          aspect-ratio: 4/3;
+        }
+      }
+
+      .image-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        .gallery-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s ease;
+          display: block;
+        }
+
+        .image-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(10, 36, 99, 0.1) 50%,
+            rgba(10, 36, 99, 0.8) 100%
+          );
+          @include flex-center;
+          opacity: 0;
+          transition: all 0.3s ease;
+          padding: 1rem;
+
+          .overlay-content {
+            color: $white;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+
+            i {
+              font-size: 2rem;
+              margin-bottom: 0.5rem;
+              display: block;
+            }
+
+            .image-caption {
+              font-size: 0.9rem;
+              font-weight: 500;
+            }
+          }
+        }
+
+        .image-badge {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          background: $gold;
+          color: $white;
+          padding: 0.4rem 0.8rem;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          @include flex-center;
+          gap: 0.3rem;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
+          i {
+            font-size: 0.7rem;
+          }
+        }
+      }
+
+      &:hover {
+        .image-overlay {
+          opacity: 1;
+
+          .overlay-content {
+            transform: translateY(0);
+          }
+        }
+
+        .gallery-image {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+  // Load More Section
+  .load-more-section {
+    text-align: center;
+    margin: 2rem 0;
+
+    .load-more-btn {
+      background: $navy-blue;
+      border: none;
+      border-radius: 25px;
+      color: $white;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      @include flex-center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 15px rgba(10, 36, 99, 0.2);
+
+      &:hover {
+        background: $navy-light;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(10, 36, 99, 0.3);
+      }
+
+      i {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  // Empty State
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: $text-light;
+
+    i {
+      font-size: 4rem;
+      color: lighten($text-light, 20%);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    h3 {
+      @include responsive-font(1.5rem, 1.3rem, 1.2rem);
+      color: $text-dark;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 1rem;
+      margin: 0;
+    }
+  }
+
+  // Lightbox Styles
+  .lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    @include flex-center;
+    @include flex-column;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-content {
+      position: relative;
+      width: 90%;
+      height: 80%;
+      @include flex-center;
+      gap: 1rem;
+
+      @media (max-width: 768px) {
+        width: 95%;
+        height: 70%;
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: -50px;
+        right: 0;
+        background: none;
+        border: none;
+        color: $white;
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 1001;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $gold;
+        }
+
+        @media (max-width: 768px) {
+          top: -40px;
+          font-size: 1.5rem;
+        }
+      }
+
+      .lightbox-nav {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: $white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        @include flex-center;
+        cursor: pointer;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+        z-index: 1001;
+        flex-shrink: 0;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.3);
+          transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+          width: 50px;
+          height: 50px;
+          font-size: 1.2rem;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+
+          &.prev {
+            left: 10px;
+          }
+
+          &.next {
+            right: 10px;
+          }
+        }
+      }
+
+      .lightbox-image-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        @include flex-center;
+
+        .lightbox-image {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+          border-radius: 8px;
+          display: block;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+
+          &.loaded {
+            opacity: 1;
+          }
+        }
+
+        .loading-spinner {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: $white;
+          text-align: center;
+          z-index: 1002;
+
+          .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid $gold;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+          }
+
+          p {
+            color: $white;
+            font-size: 1rem;
+            margin: 0;
+            opacity: 0.8;
+          }
+        }
+
+        .lightbox-info {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+          color: $white;
+          padding: 2rem 1.5rem 1.5rem;
+          border-radius: 0 0 8px 8px;
+          z-index: 1001;
+
+          .info-content {
+            .image-title {
+              @include responsive-font(1.3rem, 1.2rem, 1.1rem);
+              margin-bottom: 0.25rem;
+              font-weight: 600;
+            }
+
+            .image-date {
+              font-size: 0.9rem;
+              opacity: 0.8;
+              margin-bottom: 1rem;
+            }
+
+            .image-meta {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+
+              .image-category {
+                @include flex-center;
+                gap: 0.5rem;
+                font-size: 0.9rem;
+                opacity: 0.9;
+
+                i {
+                  font-size: 1rem;
+                }
+              }
+
+              .image-counter {
+                font-size: 0.9rem;
+                opacity: 0.8;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .lightbox-thumbnails {
+      position: absolute;
+      bottom: 2rem;
+      left: 0;
+      right: 0;
+      padding: 0 2rem;
+      z-index: 1001;
+
+      @media (max-width: 768px) {
+        bottom: 1rem;
+        padding: 0 1rem;
+      }
+
+      .thumbnails-container {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        overflow-x: auto;
+        padding: 0.5rem;
+
+        .thumbnail {
+          width: 60px;
+          height: 60px;
+          border-radius: 6px;
+          overflow: hidden;
+          cursor: pointer;
+          border: 2px solid transparent;
+          transition: all 0.3s ease;
+          opacity: 0.6;
+          flex-shrink: 0;
+
+          @media (max-width: 768px) {
+            width: 50px;
+            height: 50px;
+          }
+
+          @media (max-width: 480px) {
+            width: 40px;
+            height: 40px;
+          }
+
+          &.active {
+            opacity: 1;
+            border-color: $gold;
+            transform: scale(1.1);
+          }
+
+          &:hover {
+            opacity: 1;
+            transform: scale(1.05);
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+// Loading animation for images
+.gallery-image {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+
+  &[src] {
+    background: none;
+    animation: none;
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Print Styles
+@media print {
+  .wedding-gallery {
+    background: white !important;
+    color: black !important;
+    
+    .image-overlay,
+    .lightbox,
+    .load-more-section {
+      display: none !important;
+    }
+    
+    .gallery-grid {
+      display: block !important;
+      
+      .gallery-item {
+        break-inside: avoid;
+        margin-bottom: 1rem;
+        
+        &.featured {
+          grid-column: 1 !important;
+          grid-row: 1 !important;
+        }
+      }
+    }
+  }
+}

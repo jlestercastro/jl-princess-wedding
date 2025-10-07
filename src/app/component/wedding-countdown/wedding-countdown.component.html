@@ -1,89 +1,78 @@
-<!-- countdown.component.html -->
-<div class="countdown-container" [class]="countdownClass">
-  <div class="countdown-header">
-    <h1 class="countdown-title">COUNTDOWN TO FOREVER</h1>
-    <p class="countdown-subtitle">Our Wedding Day Approaches</p>
-  </div>
+<div class="wedding-countdown">
+  <div class="countdown-container">
+    <div class="countdown-header">
+      <h2 class="countdown-title">Counting Down to Our Special Day</h2>
+      <p class="countdown-subtitle">October 25, 2025 • St. Benedict Parish Church</p>
+    </div>
 
-  <div class="countdown-content">
-    <!-- Main Countdown Timer -->
     <div class="countdown-timer">
-      <div class="timer-display">
-        <div class="time-unit">
-          <div class="time-card">
-            <div class="time-value">{{ timeRemaining.days | number:'2.0' }}</div>
-            <div class="time-label">DAYS</div>
-          </div>
-          <div class="time-separator">:</div>
+      <div class="time-unit" *ngFor="let unit of timeUnits">
+        <div class="time-card">
+          <span class="time-value">{{ unit.value | number:'2.0' }}</span>
         </div>
-        
-        <div class="time-unit">
-          <div class="time-card">
-            <div class="time-value">{{ timeRemaining.hours | number:'2.0' }}</div>
-            <div class="time-label">HOURS</div>
-          </div>
-          <div class="time-separator">:</div>
-        </div>
-        
-        <div class="time-unit">
-          <div class="time-card">
-            <div class="time-value">{{ timeRemaining.minutes | number:'2.0' }}</div>
-            <div class="time-label">MINUTES</div>
-          </div>
-          <div class="time-separator">:</div>
-        </div>
-        
-        <div class="time-unit">
-          <div class="time-card">
-            <div class="time-value">{{ timeRemaining.seconds | number:'2.0' }}</div>
-            <div class="time-label">SECONDS</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Progress Bar -->
-      <div class="countdown-progress">
-        <div class="progress-bar" [style.width.%]="getProgressPercentage()"></div>
+        <span class="time-label">{{ unit.label }}</span>
       </div>
     </div>
 
-    <!-- Wedding Date Display -->
-    <div class="wedding-date-display">
-      <div class="date-card">
-        <div class="calendar-icon">📅</div>
-        <div class="date-info">
-          <h3 class="date-title">Save The Date</h3>
-          <p class="wedding-date">{{ getWeddingDateFormatted() }}</p>
-          <p class="wedding-time">⏰ {{ getWeddingTimeFormatted() }}</p>
+    <!-- Add to Calendar Section -->
+    <div class="calendar-section">
+      <div class="calendar-container">
+        <h3 class="calendar-title">Save the Date</h3>
+        <p class="calendar-subtitle">Add our wedding to your calendar</p>
+        
+        <div class="calendar-buttons">
+          <!-- Main Add to Calendar Button -->
+          <button class="add-to-calendar-btn" (click)="toggleCalendarDropdown()">
+            <i class="bi bi-calendar-plus"></i>
+            Add to Calendar
+            <i class="bi bi-chevron-down dropdown-arrow" [class.rotated]="showCalendarDropdown"></i>
+          </button>
+
+          <!-- Calendar Options Dropdown -->
+          <div class="calendar-dropdown" [class.show]="showCalendarDropdown">
+            <button class="calendar-option" (click)="addToGoogleCalendar()">
+              <i class="bi bi-google"></i>
+              Google Calendar
+            </button>
+            <button class="calendar-option" (click)="addToAppleCalendar()">
+              <i class="bi bi-apple"></i>
+              Apple Calendar
+            </button>
+            <button class="calendar-option" (click)="addToOutlook()">
+              <i class="bi bi-microsoft"></i>
+              Outlook
+            </button>
+            <button class="calendar-option" (click)="downloadICS()">
+              <i class="bi bi-download"></i>
+              Download .ICS File
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Add Buttons for Mobile -->
+        <div class="quick-calendar-buttons">
+          <button class="quick-calendar-btn google" (click)="addToGoogleCalendar()" title="Add to Google Calendar">
+            <i class="bi bi-google"></i>
+          </button>
+          <button class="quick-calendar-btn apple" (click)="addToAppleCalendar()" title="Add to Apple Calendar">
+            <i class="bi bi-apple"></i>
+          </button>
+          <button class="quick-calendar-btn outlook" (click)="addToOutlook()" title="Add to Outlook">
+            <i class="bi bi-microsoft"></i>
+          </button>
+          <button class="quick-calendar-btn download" (click)="downloadICS()" title="Download ICS File">
+            <i class="bi bi-download"></i>
+          </button>
         </div>
       </div>
+    </div>
 
-      <div class="action-buttons">
-        <button class="action-btn calendar-btn" (click)="addToCalendar()">
-          <span class="btn-icon">📅</span>
-          Add to Calendar
-        </button>
+    <div class="countdown-message" *ngIf="isToday()">
+      <div class="message-content">
+        <i class="bi bi-heart-fill"></i>
+        <h3>It's Our Wedding Day!</h3>
+        <p>Thank you for sharing this special moment with us</p>
       </div>
-
     </div>
-    
-
-    <!-- Countdown Message -->
-    <div class="countdown-message">
-      <p class="message-text">{{ currentMessage }}</p>
-    </div>
-
-  </div>
-
-  <!-- Floating Hearts -->
-  <div class="floating-hearts">
-    <div class="heart">💙</div>
-    <div class="heart">💙</div>
-    <div class="heart">💙</div>
-    <div class="heart">💙</div>
-    <div class="heart">💙</div>
-    <div class="heart">💙</div>
-    <div class="heart">💙</div>
-    <div class="heart">💙</div>
   </div>
 </div>

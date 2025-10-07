@@ -1,563 +1,495 @@
-// countdown.component.scss
-.countdown-container {
-  min-height: 80vh;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  padding: 1rem 2rem;
-  position: relative;
-  overflow: hidden;
+// Color Variables
+$navy-blue: #0a2463;
+$navy-light: #1a337c;
+$white: #ffffff;
+$off-white: #f8f9fa;
+$gold: #d4af37;
+$text-dark: #2c3e50;
+$text-light: #7f8c8d;
+$success-green: #28a745;
+$google-red: #db4437;
+$apple-black: #000000;
+$outlook-blue: #0078d4;
 
-  &.one-month-countdown {
-    background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
-  }
+// Typography
+$font-primary: 'Playfair Display', serif;
+$font-secondary: 'Montserrat', sans-serif;
 
-  &.one-week-countdown {
-    background: linear-gradient(135deg, #bbdefb 0%, #e3f2fd 100%);
-  }
-
-  &.final-countdown {
-    background: linear-gradient(135deg, #90caf9 0%, #bbdefb 100%);
-    animation: pulseBackground 2s ease-in-out infinite alternate;
-  }
-}
-
-@keyframes pulseBackground {
-  from {
-    background: linear-gradient(135deg, #90caf9 0%, #bbdefb 100%);
-  }
-
-  to {
-    background: linear-gradient(135deg, #64b5f6 0%, #90caf9 100%);
-  }
-}
-
-.countdown-header {
-  text-align: center;
-  margin-bottom: 3rem;
-  padding: 2rem 0;
-
-  .countdown-title {
-    font-size: 2.2rem;
-    font-weight: 300;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: #2c3e50;
-    margin-bottom: 1rem;
-  }
-
-  .countdown-subtitle {
-    font-size: 1.2rem;
-    color: #6c757d;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-}
-
-.countdown-content {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.countdown-timer {
-  background: white;
-  border-radius: 24px;
-  padding: 3rem 2rem;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
-  margin-bottom: 3rem;
-  border: 1px solid rgba(25, 118, 210, 0.1);
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
-  }
-}
-
-.timer-display {
+// Mixins
+@mixin flex-center {
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
 }
 
-.time-unit {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
+@mixin responsive-font($desktop, $tablet, $mobile) {
+  font-size: $desktop;
+  
+  @media (max-width: 1024px) {
+    font-size: $tablet;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: $mobile;
+  }
 }
 
-.time-card {
-  text-align: center;
-  min-width: 100px;
+.wedding-countdown {
+  background: linear-gradient(135deg, $off-white 0%, $white 100%);
+  padding: 4rem 2rem;
+  font-family: $font-secondary;
+  color: $text-dark;
 
-  .time-value {
-    font-size: 3.5rem;
-    font-weight: 300;
-    color: #1976d2;
-    line-height: 1;
-    margin-bottom: 0.5rem;
-    font-variant-numeric: tabular-nums;
+  @media (max-width: 768px) {
+    padding: 3rem 1.5rem;
+  }
 
-    .final-countdown & {
-      animation: pulse 1s ease-in-out infinite;
-      color: #0d47a1;
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+  }
+
+  .countdown-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .countdown-header {
+    margin-bottom: 3rem;
+
+    .countdown-title {
+      @include responsive-font(2.5rem, 2rem, 1.75rem);
+      font-family: $font-primary;
+      color: $navy-blue;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .countdown-subtitle {
+      @include responsive-font(1.2rem, 1.1rem, 1rem);
+      color: $text-light;
+      font-weight: 300;
+      letter-spacing: 0.5px;
     }
   }
 
-  .time-label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #6c757d;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+  .countdown-timer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .time-unit {
+      @include flex-center;
+      flex-direction: column;
+
+      .time-card {
+        background: $white;
+        border: 2px solid $navy-blue;
+        border-radius: 12px;
+        padding: 1.5rem 1rem;
+        margin-bottom: 0.75rem;
+        width: 100%;
+        box-shadow: 0 4px 15px rgba(10, 36, 99, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+
+        @media (max-width: 768px) {
+          padding: 1.25rem 0.75rem;
+        }
+
+        @media (max-width: 480px) {
+          padding: 1rem 0.5rem;
+        }
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: $navy-blue;
+          transform: scaleX(0);
+          transition: transform 0.3s ease;
+        }
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 25px rgba(10, 36, 99, 0.15);
+
+          &::before {
+            transform: scaleX(1);
+          }
+        }
+
+        .time-value {
+          @include responsive-font(3rem, 2.5rem, 2rem);
+          font-family: $font-primary;
+          color: $navy-blue;
+          font-weight: 600;
+          line-height: 1;
+        }
+      }
+
+      .time-label {
+        @include responsive-font(1rem, 0.9rem, 0.8rem);
+        color: $text-light;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .countdown-progress {
+    background: $white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(10, 36, 99, 0.1);
+    margin-bottom: 2rem;
+
+    @media (max-width: 480px) {
+      padding: 1.25rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: lighten($navy-blue, 60%);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, $navy-blue 0%, lighten($navy-blue, 20%) 100%);
+        border-radius: 4px;
+        transition: width 1s ease-in-out;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          width: 20px;
+          background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 100%);
+        }
+      }
+    }
+
+    .progress-text {
+      @include responsive-font(0.9rem, 0.85rem, 0.8rem);
+      color: $text-light;
+      font-weight: 400;
+    }
+  }
+
+  // Calendar Section Styles
+  .calendar-section {
+    margin: 3rem 0 2rem;
+
+    .calendar-container {
+      background: $white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 25px rgba(10, 36, 99, 0.1);
+      border: 1px solid lighten($navy-blue, 70%);
+
+      @media (max-width: 768px) {
+        padding: 2rem;
+      }
+
+      @media (max-width: 480px) {
+        padding: 1.5rem;
+      }
+
+      .calendar-title {
+        @include responsive-font(1.5rem, 1.3rem, 1.2rem);
+        font-family: $font-primary;
+        color: $navy-blue;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .calendar-subtitle {
+        @include responsive-font(1rem, 0.95rem, 0.9rem);
+        color: $text-light;
+        margin-bottom: 2rem;
+        font-weight: 300;
+      }
+
+      .calendar-buttons {
+        position: relative;
+        margin-bottom: 1.5rem;
+
+        .add-to-calendar-btn {
+          background: linear-gradient(135deg, $navy-blue 0%, $navy-light 100%);
+          color: $white;
+          border: none;
+          border-radius: 50px;
+          padding: 1rem 2rem;
+          font-size: 1.1rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(10, 36, 99, 0.2);
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(10, 36, 99, 0.3);
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+
+          .dropdown-arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+
+            &.rotated {
+              transform: rotate(180deg);
+            }
+          }
+        }
+
+        .calendar-dropdown {
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-10px);
+          background: $white;
+          border-radius: 12px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+          padding: 0.5rem;
+          min-width: 200px;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+          z-index: 10;
+
+          &.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(10px);
+          }
+
+          .calendar-option {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: $text-dark;
+            font-weight: 400;
+
+            &:hover {
+              background: lighten($navy-blue, 65%);
+              color: $navy-blue;
+            }
+
+            i {
+              font-size: 1.1rem;
+              width: 20px;
+            }
+
+            // Platform-specific colors on hover
+            &:hover:nth-child(1) { // Google
+              background: lighten($google-red, 45%);
+              color: $google-red;
+            }
+
+            &:hover:nth-child(2) { // Apple
+              background: lighten($apple-black, 85%);
+              color: $apple-black;
+            }
+
+            &:hover:nth-child(3) { // Outlook
+              background: lighten($outlook-blue, 45%);
+              color: $outlook-blue;
+            }
+
+            &:hover:nth-child(4) { // Download
+              background: lighten($success-green, 55%);
+              color: $success-green;
+            }
+          }
+        }
+      }
+
+      .quick-calendar-buttons {
+        display: none;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+
+        @media (max-width: 768px) {
+          display: flex;
+        }
+
+        .quick-calendar-btn {
+          @include flex-center;
+          width: 50px;
+          height: 50px;
+          border: none;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          font-size: 1.2rem;
+          color: $white;
+
+          &.google {
+            background: $google-red;
+            
+            &:hover {
+              background: darken($google-red, 10%);
+              transform: translateY(-2px);
+            }
+          }
+
+          &.apple {
+            background: $apple-black;
+            
+            &:hover {
+              background: lighten($apple-black, 20%);
+              transform: translateY(-2px);
+            }
+          }
+
+          &.outlook {
+            background: $outlook-blue;
+            
+            &:hover {
+              background: darken($outlook-blue, 10%);
+              transform: translateY(-2px);
+            }
+          }
+
+          &.download {
+            background: $success-green;
+            
+            &:hover {
+              background: darken($success-green, 10%);
+              transform: translateY(-2px);
+            }
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+        }
+      }
+    }
+  }
+
+  .countdown-message {
+    background: linear-gradient(135deg, $navy-blue 0%, $navy-light 100%);
+    color: $white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(10, 36, 99, 0.2);
+
+    .message-content {
+      @include flex-center;
+      flex-direction: column;
+
+      i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: $gold;
+      }
+
+      h3 {
+        @include responsive-font(1.75rem, 1.5rem, 1.25rem);
+        font-family: $font-primary;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      p {
+        @include responsive-font(1.1rem, 1rem, 0.9rem);
+        opacity: 0.9;
+        font-weight: 300;
+      }
+    }
   }
 }
 
-.time-separator {
-  font-size: 2.5rem;
-  font-weight: 300;
-  color: #1976d2;
-  margin-top: -1rem;
-  opacity: 0.7;
+// Animation for number changes
+.time-value {
+  &.changing {
+    animation: pulse 0.5s ease-in-out;
+  }
 }
 
+// Keyframe animations
 @keyframes pulse {
-
-  0%,
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
   100% {
     transform: scale(1);
   }
-
-  50% {
-    transform: scale(1.05);
-  }
 }
 
-.countdown-progress {
-  height: 6px;
-  background: rgba(25, 118, 210, 0.1);
-  border-radius: 3px;
-  overflow: hidden;
-  margin: 0 2rem;
-
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
-    border-radius: 3px;
-    transition: width 1s ease-in-out;
-    position: relative;
-    overflow: hidden;
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-      animation: shimmer 2s infinite;
-    }
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    left: -100%;
-  }
-
-  100% {
-    left: 100%;
-  }
-}
-
-.wedding-date-display {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-  gap: 2rem;
-}
-
-.date-card {
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  border: 1px solid rgba(25, 118, 210, 0.1);
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: translateY(-3px);
-  }
-
-  .calendar-icon {
-    font-size: 3rem;
-    opacity: 0.8;
-  }
-
-  .date-info {
-    .date-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #1976d2;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.5rem;
-    }
-
-    .wedding-date {
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: #2c3e50;
-      margin-bottom: 0.25rem;
-    }
-
-    .wedding-time {
-      font-size: 1rem;
-      color: #6c757d;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-  }
-}
-
-.countdown-message {
-  text-align: center;
-  margin-bottom: 3rem;
-
-  .message-text {
-    font-size: 1.3rem;
-    color: #2c3e50;
-    font-weight: 300;
-    letter-spacing: 0.05em;
-    line-height: 1.6;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 1.5rem 2rem;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 12px;
-    border-left: 4px solid #1976d2;
-
-    .final-countdown & {
-      background: rgba(255, 255, 255, 0.9);
-      font-weight: 500;
-      animation: bounce 2s ease-in-out infinite;
-    }
-  }
-}
-
-@keyframes bounce {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-.info-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-}
-
-.info-card {
-  background: white;
-  padding: 2rem 1.5rem;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(25, 118, 210, 0.1);
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-  }
-
-  .info-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    opacity: 0.9;
-  }
-
-  h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  p {
-    font-size: 0.95rem;
-    color: #6c757d;
-    line-height: 1.5;
-    margin: 0;
-  }
-}
-
-.interactive-section {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.milestone-tracker {
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(25, 118, 210, 0.1);
-
-  h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-}
-
-.milestones {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.milestone {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  border-left: 4px solid transparent;
-
-  &.completed {
-    background: rgba(25, 118, 210, 0.05);
-    border-left-color: #1976d2;
-
-    .milestone-icon {
-      background: #1976d2;
-      color: white;
-    }
-
-    .milestone-text {
-      color: #1976d2;
-      font-weight: 500;
-    }
-  }
-
-  &.current {
-    background: rgba(25, 118, 210, 0.1);
-    border-left-color: #0d47a1;
-
-    .milestone-icon {
-      background: #0d47a1;
-      color: white;
-    }
-  }
-
-  .milestone-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #e9ecef;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-
-  .milestone-text {
-    font-size: 0.9rem;
-    color: #6c757d;
-    font-weight: 500;
-    transition: all 0.3s ease;
-  }
-}
-
-.action-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.action-btn {
-  padding: 1rem 1.5rem;
-  border: none;
-  border-radius: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  letter-spacing: 0.05em;
-  font-size: 0.9rem;
-
-  &.calendar-btn {
-    background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
-    color: white;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(25, 118, 210, 0.4);
-    }
-  }
-
-  &.reminder-btn {
-    background: white;
-    color: #1976d2;
-    border: 2px solid #1976d2;
-
-    &:hover {
-      background: rgba(25, 118, 210, 0.1);
-      transform: translateY(-2px);
-    }
-  }
-
-  .btn-icon {
-    font-size: 1.1rem;
-  }
-}
-
-.floating-hearts {
-  position: absolute;
+// Close dropdown when clicking outside
+.dropdown-backdrop {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-  z-index: 0;
+  z-index: 5;
+  background: transparent;
 }
 
-.heart {
-  position: absolute;
-  font-size: 1.5rem;
-  opacity: 0.3;
-  animation: float 6s ease-in-out infinite;
-
-  &:nth-child(1) {
-    left: 10%;
-    animation-delay: 0s;
-    animation-duration: 8s;
-  }
-
-  &:nth-child(2) {
-    left: 20%;
-    animation-delay: 1s;
-    animation-duration: 10s;
-  }
-
-  &:nth-child(3) {
-    left: 30%;
-    animation-delay: 2s;
-    animation-duration: 7s;
-  }
-
-  &:nth-child(4) {
-    left: 40%;
-    animation-delay: 3s;
-    animation-duration: 9s;
-  }
-
-  &:nth-child(5) {
-    left: 50%;
-    animation-delay: 4s;
-    animation-duration: 6s;
-  }
-
-  &:nth-child(6) {
-    left: 60%;
-    animation-delay: 5s;
-    animation-duration: 11s;
-  }
-
-  &:nth-child(7) {
-    left: 70%;
-    animation-delay: 6s;
-    animation-duration: 8s;
-  }
-
-  &:nth-child(8) {
-    left: 80%;
-    animation-delay: 7s;
-    animation-duration: 10s;
-  }
-}
-
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0.3;
-  }
-
-  50% {
-    transform: translateY(-20px) rotate(180deg);
-    opacity: 0.6;
-  }
-}
-
-@media (max-width: 768px) {
-  .countdown-container {
-    padding: 2rem 1rem;
-  }
-
-  .countdown-header {
-    .countdown-title {
-      font-size: 1.8rem;
+// Print styles
+@media print {
+  .wedding-countdown {
+    background: white !important;
+    color: black !important;
+    
+    .time-card {
+      border: 2px solid black !important;
+      box-shadow: none !important;
     }
-  }
-
-  .timer-display {
-    gap: 1rem;
-  }
-
-  .time-card {
-    min-width: 70px;
-
-    .time-value {
-      font-size: 2.5rem;
+    
+    .countdown-progress,
+    .calendar-section {
+      box-shadow: none !important;
+      border: 1px solid #ccc !important;
     }
-  }
 
-  .interactive-section {
-    grid-template-columns: 1fr;
-  }
-
-  .action-buttons {
-    flex-direction: row;
+    .calendar-buttons,
+    .quick-calendar-buttons {
+      display: none !important;
+    }
   }
 }

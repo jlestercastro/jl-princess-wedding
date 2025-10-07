@@ -1,0 +1,685 @@
+// wedding-when-where.component.scss
+// Color Variables
+$navy-blue: #0a2463;
+$navy-light: #1a337c;
+$white: #ffffff;
+$off-white: #f8f9fa;
+$gold: #d4af37;
+$text-dark: #2c3e50;
+$text-light: #7f8c8d;
+$border-light: #e9ecef;
+$accent-green: #27ae60;
+$accent-pink: #e84393;
+
+// Typography
+$font-primary: 'Playfair Display', serif;
+$font-secondary: 'Montserrat', sans-serif;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin responsive-font($desktop, $tablet, $mobile) {
+  font-size: $desktop;
+
+  @media (max-width: 1024px) {
+    font-size: $tablet;
+  }
+
+  @media (max-width: 768px) {
+    font-size: $mobile;
+  }
+}
+
+@mixin card-shadow {
+  box-shadow: 0 4px 20px rgba(10, 36, 99, 0.08);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 30px rgba(10, 36, 99, 0.12);
+    transform: translateY(-2px);
+  }
+}
+
+.wedding-when-where {
+  background: linear-gradient(180deg, #f8f9fa 0%, rgb(11 29 81 / 50%) 106%);
+  padding: 4rem 2rem;
+  font-family: $font-secondary;
+  color: $text-dark;
+  min-height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 3rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
+  // Section Header
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+
+    .section-title {
+      @include responsive-font(3rem, 2.5rem, 2rem);
+      font-family: $font-primary;
+      color: $navy-blue;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      @include responsive-font(1.3rem, 1.2rem, 1.1rem);
+      color: $text-light;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      line-height: 1.4;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .header-decoration {
+      @include flex-center;
+      gap: 1.5rem;
+      max-width: 300px;
+      margin: 0 auto;
+
+      .decoration-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, $navy-blue 50%, transparent 100%);
+      }
+
+      i {
+        color: $gold;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  // Countdown Section
+  .countdown-section {
+    margin-bottom: 4rem;
+
+    .countdown-card {
+      background: linear-gradient(135deg, $navy-blue 0%, $navy-light 100%);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      color: $white;
+      @include card-shadow;
+
+      @media (max-width: 768px) {
+        padding: 2rem 1.5rem;
+      }
+
+      .countdown-title {
+        @include responsive-font(2rem, 1.75rem, 1.5rem);
+        font-family: $font-primary;
+        margin-bottom: 2rem;
+        font-weight: 400;
+      }
+
+      .countdown-timer {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+
+        @media (max-width: 768px) {
+          gap: 1rem;
+        }
+
+        @media (max-width: 480px) {
+          flex-wrap: wrap;
+        }
+
+        .countdown-item {
+          @include flex-column;
+          align-items: center;
+          background: rgba(255, 255, 255, 0.1);
+          padding: 1.5rem 1rem;
+          border-radius: 12px;
+          min-width: 100px;
+
+          @media (max-width: 768px) {
+            min-width: 80px;
+            padding: 1rem 0.5rem;
+          }
+
+          .countdown-number {
+            @include responsive-font(2.5rem, 2rem, 1.75rem);
+            font-weight: 700;
+            font-family: $font-primary;
+            color: $gold;
+            line-height: 1;
+          }
+
+          .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+          }
+        }
+      }
+
+      .countdown-message {
+        @include responsive-font(1.2rem, 1.1rem, 1rem);
+        opacity: 0.9;
+        margin: 0;
+        font-style: italic;
+      }
+    }
+  }
+
+  // Events Section
+  .events-section {
+    margin-bottom: 4rem;
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+
+      @media (min-width: 992px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+
+  // Event Card
+  .event-card {
+    background: $white;
+    border-radius: 16px;
+    overflow: hidden;
+    @include card-shadow;
+    @include flex-column;
+
+    &.featured {
+      border: 2px solid $gold;
+    }
+
+    &.small {
+      .event-header {
+        padding: 1.5rem 1.5rem 1rem;
+      }
+
+      .event-details {
+        padding: 0 1.5rem 1rem;
+      }
+
+      .event-actions {
+        padding: 1rem 1.5rem 1.5rem;
+      }
+    }
+
+    .event-header {
+      padding: 2rem 2rem 1.5rem;
+      background: linear-gradient(135deg, $off-white 0%, $white 100%);
+      border-bottom: 1px solid $border-light;
+      @include flex-center;
+      justify-content: flex-start;
+      gap: 1rem;
+
+      @media (max-width: 768px) {
+        padding: 1.5rem;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .event-icon {
+        width: 60px;
+        height: 60px;
+        background: $navy-blue;
+        border-radius: 50%;
+        @include flex-center;
+        flex-shrink: 0;
+        
+        i {
+          color: $white;
+          font-size: 1.5rem;
+        }
+      }
+
+      .event-title-content {
+        flex: 1;
+      }
+
+      .event-title {
+        @include responsive-font(1.8rem, 1.6rem, 1.4rem);
+        font-family: $font-primary;
+        color: $navy-blue;
+        margin: 0 0 0.5rem 0;
+        font-weight: 500;
+      }
+
+      .event-badge {
+        background: $gold;
+        color: $white;
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        @include flex-center;
+        gap: 0.3rem;
+        display: inline-flex;
+
+        i {
+          font-size: 0.7rem;
+        }
+      }
+    }
+
+    .event-details {
+      padding: 1.5rem 2rem;
+      flex: 1;
+
+      @media (max-width: 768px) {
+        padding: 1.5rem;
+      }
+
+      .detail-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .detail-item {
+        @include flex-center;
+        justify-content: flex-start;
+        gap: 1rem;
+        margin-bottom: 1rem;
+
+        &.venue-item {
+          grid-column: 1 / -1;
+        }
+
+        i {
+          color: $navy-blue;
+          font-size: 1.2rem;
+          width: 24px;
+          text-align: center;
+          flex-shrink: 0;
+        }
+
+        .detail-content {
+          @include flex-column;
+          gap: 0.25rem;
+          flex: 1;
+        }
+
+        .detail-label {
+          font-size: 0.8rem;
+          color: $text-light;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          font-weight: 600;
+        }
+
+        .detail-value {
+          font-size: 1rem;
+          color: $text-dark;
+          font-weight: 500;
+
+          &.venue-name {
+            font-weight: 600;
+            color: $navy-blue;
+          }
+
+          &.venue-address {
+            font-size: 0.9rem;
+            color: $text-light;
+          }
+        }
+      }
+
+      .event-description {
+        margin: 1.5rem 0;
+        padding: 1rem;
+        background: lighten($navy-blue, 70%);
+        border-radius: 8px;
+        border-left: 4px solid $navy-blue;
+
+        p {
+          margin: 0;
+          line-height: 1.6;
+          color: $text-dark;
+        }
+      }
+
+      .additional-info {
+        @include flex-column;
+        gap: 0.75rem;
+
+        .info-item {
+          @include flex-center;
+          justify-content: flex-start;
+          gap: 0.75rem;
+          padding: 0.75rem;
+          background: $off-white;
+          border-radius: 8px;
+
+          i {
+            color: $gold;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+          }
+
+          span {
+            font-size: 0.9rem;
+            color: $text-dark;
+          }
+        }
+      }
+    }
+
+    .event-actions {
+      padding: 1.5rem 2rem 2rem;
+      border-top: 1px solid $border-light;
+      display: flex;
+      gap: 1rem;
+
+      @media (max-width: 768px) {
+        padding: 1.5rem;
+        flex-direction: column;
+      }
+
+      .btn {
+        flex: 1;
+        padding: 0.75rem 1.5rem;
+        border: 2px solid $navy-blue;
+        background: $navy-blue;
+        color: $white;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        @include flex-center;
+        gap: 0.5rem;
+
+        &:hover {
+          background: lighten($navy-blue, 10%);
+          transform: translateY(-2px);
+        }
+
+        &.btn-map {
+          background: $accent-green;
+          border-color: $accent-green;
+
+          &:hover {
+            background: darken($accent-green, 10%);
+          }
+        }
+
+        &.btn-calendar {
+          background: $gold;
+          border-color: $gold;
+
+          &:hover {
+            background: darken($gold, 10%);
+          }
+        }
+
+        &.btn-outline {
+          background: transparent;
+          color: $navy-blue;
+
+          &:hover {
+            background: $navy-blue;
+            color: $white;
+          }
+        }
+
+        &.btn-primary {
+          background: $accent-pink;
+          border-color: $accent-pink;
+
+          &:hover {
+            background: darken($accent-pink, 10%);
+          }
+        }
+
+        i {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  // Other Events Section
+  .other-events-section {
+    margin-bottom: 4rem;
+
+    .section-subtitle {
+      @include responsive-font(2.2rem, 1.8rem, 1.5rem);
+      font-family: $font-primary;
+      color: $navy-blue;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent 0%, $navy-blue 50%, transparent 100%);
+      }
+    }
+
+    .other-events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  // Travel Section
+  .travel-section {
+    margin-bottom: 4rem;
+
+    .section-subtitle {
+      @include responsive-font(2.2rem, 1.8rem, 1.5rem);
+      font-family: $font-primary;
+      color: $navy-blue;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent 0%, $navy-blue 50%, transparent 100%);
+      }
+    }
+
+    .travel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .travel-card {
+      background: $white;
+      border-radius: 16px;
+      padding: 2rem;
+      @include card-shadow;
+      @include flex-center;
+      justify-content: flex-start;
+      gap: 1.5rem;
+      text-align: left;
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .travel-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, $navy-blue 0%, $navy-light 100%);
+        border-radius: 50%;
+        @include flex-center;
+        flex-shrink: 0;
+
+        i {
+          color: $white;
+          font-size: 1.8rem;
+        }
+      }
+
+      .travel-content {
+        flex: 1;
+
+        h3 {
+          @include responsive-font(1.3rem, 1.2rem, 1.1rem);
+          font-family: $font-primary;
+          color: $navy-blue;
+          margin: 0 0 0.75rem 0;
+          font-weight: 500;
+        }
+
+        p {
+          color: $text-dark;
+          line-height: 1.6;
+          margin: 0;
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+
+  // RSVP Section
+  .rsvp-section {
+    .rsvp-card {
+      background: linear-gradient(135deg, $navy-blue 0%, $navy-light 100%);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      color: $white;
+      @include card-shadow;
+      @include flex-center;
+      gap: 2rem;
+
+      @media (max-width: 768px) {
+        padding: 2rem 1.5rem;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .rsvp-icon {
+        i {
+          font-size: 3rem;
+          color: $gold;
+        }
+      }
+
+      .rsvp-content {
+        flex: 1;
+
+        h2 {
+          @include responsive-font(2rem, 1.75rem, 1.5rem);
+          font-family: $font-primary;
+          margin-bottom: 1rem;
+          font-weight: 500;
+        }
+
+        p {
+          @include responsive-font(1.1rem, 1rem, 0.95rem);
+          line-height: 1.6;
+          opacity: 0.9;
+          margin-bottom: 2rem;
+        }
+
+        .btn {
+          background: $gold;
+          color: $white;
+          border: none;
+          padding: 1rem 2rem;
+          border-radius: 25px;
+          font-size: 1.1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          @include flex-center;
+          gap: 0.5rem;
+          margin: 0 auto;
+
+          &:hover {
+            background: darken($gold, 10%);
+            transform: translateY(-2px);
+          }
+
+          i {
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Print Styles
+@media print {
+  .wedding-when-where {
+    background: white !important;
+    color: black !important;
+
+    .event-actions,
+    .btn {
+      display: none !important;
+    }
+
+    .event-card {
+      box-shadow: none !important;
+      border: 1px solid #ccc !important;
+      break-inside: avoid;
+    }
+  }
+}

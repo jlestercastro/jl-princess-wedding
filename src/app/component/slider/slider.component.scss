@@ -1,14 +1,70 @@
+// Variables for consistent theming
+$wedding-primary: #0a2463; // Navy blue
+$wedding-secondary: #ffffff; // White
+$wedding-accent: #d4af37; // Gold accent
+$text-dark: #333333;
+$text-light: #ffffff;
+$shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.1);
+$shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+// Mixins for reusable styles
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin responsive-font($desktop, $tablet, $mobile) {
+  font-size: $desktop;
+
+  @media (max-width: 1024px) {
+    font-size: $tablet;
+  }
+
+  @media (max-width: 768px) {
+    font-size: $mobile;
+  }
+}
+
 .wedding-slider {
   position: relative;
   width: 100%;
   height: 100vh;
+  min-height: 600px; // Ensure minimum height on desktop
   overflow: hidden;
   font-family: 'Playfair Display', serif;
+
+  @media (max-width: 1024px) {
+    height: 80vh;
+    min-height: 500px;
+  }
+
+  @media (max-width: 768px) {
+    height: 70vh;
+    min-height: 400px;
+  }
+
+  @media (max-width: 480px) {
+    height: 60vh;
+    min-height: 350px;
+  }
 
   .slider-container {
     width: 100%;
     height: 100%;
     position: relative;
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
   }
 
   .slide {
@@ -19,13 +75,11 @@
     background-position: center center;
     background-repeat: no-repeat;
     opacity: 0;
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    transition: opacity 0.8s ease-in-out, transform 1.2s ease-in-out;
     transform: scale(1.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
     text-align: center;
-    color: white;
+    color: $text-light;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 
     &.active {
@@ -34,21 +88,50 @@
       z-index: 1;
     }
 
+    .slide-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom,
+          rgba(10, 36, 99, 0.1) 20%,
+          rgba(10, 36, 99, 0.3) 80%,
+          rgba(10, 36, 99, 0.5) 100%);
+      z-index: 1;
+    }
+
     .slide-content {
       transition: all 0.8s ease 0.3s;
-      background: url('../../../assets/image/slider-content.png') no-repeat center center / cover;
-      width: 60vh;
-      height: 50vh;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(3px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 600px;
+      padding: 2.5rem;
       margin: auto;
-      display: inline-grid;
-      align-items: center;
-      z-index: 99;
+      z-index: 2;
       position: relative;
+      box-shadow: $shadow-medium;
 
-      /* For mobile devices */
+      @media (max-width: 1024px) {
+        padding: 2rem;
+        max-width: 500px;
+      }
+
       @media (max-width: 768px) {
-        background-size: contain;
-        min-height: 20vh;
+        padding: 1.5rem;
+        max-width: 400px;
+        width: 85%;
+        display: none;
+      }
+
+      @media (max-width: 480px) {
+        padding: 1.2rem;
+        max-width: 320px;
+        width: 90%;
+        display: none;
       }
 
       &.visible {
@@ -56,36 +139,63 @@
         opacity: 1;
       }
 
-      h3 {
-        font-size: 3rem;
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-        font-family: 'Great Vibes', cursive;
-      }
+      .content-wrapper {
+        .title {
+          @include responsive-font(3rem, 2.5rem, 2rem);
+          margin-bottom: 0.8rem;
+          font-weight: 500;
+          font-family: 'Great Vibes', cursive;
+          color: $text-light;
+          line-height: 1.2;
+        }
 
-      p {
-        font-size: 1.2rem;
-        line-height: 1.6;
-        margin-bottom: 1rem;
-        font-family: 'Montserrat', sans-serif;
-      }
+        .description {
+          @include responsive-font(1.2rem, 1.1rem, 1rem);
+          line-height: 1.6;
+          margin-bottom: 1.5rem;
+          font-family: 'Montserrat', sans-serif;
+          color: $text-light;
+          font-weight: 300;
 
-      .slide-button {
-        background: transparent;
-        border: 2px solid white;
-        color: white;
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
-        font-family: 'Montserrat', sans-serif;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border-radius: 30px;
+          @media (max-width: 480px) {
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+          }
+        }
 
-        &:hover {
-          background: white;
-          color: #333;
+        .button-link {
+          display: inline-block;
+          text-decoration: none;
+
+          .slide-button {
+            background: transparent;
+            border: 2px solid $text-light;
+            color: $text-light;
+            padding: 0.8rem 2rem;
+            @include responsive-font(1rem, 0.95rem, 0.9rem);
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 30px;
+            font-weight: 500;
+
+            &:hover {
+              background: $text-light;
+              color: $wedding-primary;
+              transform: translateY(-2px);
+              box-shadow: $shadow-soft;
+            }
+
+            &:active {
+              transform: translateY(0);
+            }
+
+            @media (max-width: 480px) {
+              padding: 0.7rem 1.8rem;
+            }
+          }
         }
       }
     }
@@ -97,98 +207,242 @@
     left: 0;
     right: 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    z-index: 2;
+    z-index: 3;
+    padding: 0 30%;
+
+    @media (max-width: 768px) {
+      bottom: 1.5rem;
+      padding: 0 30%;
+    }
+
+    @media (max-width: 480px) {
+      bottom: 1rem;
+      padding: 0 30%;
+    }
 
     .control {
-      background: rgba(255, 255, 255, 0.3);
-      border: none;
-      width: 40px;
-      height: 40px;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
+      @include flex-center;
+      color: $text-light;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin: 0 1rem;
+      box-shadow: $shadow-soft;
+
+      @media (max-width: 768px) {
+        width: 44px;
+        height: 44px;
+      }
+
+      @media (max-width: 480px) {
+        width: 40px;
+        height: 40px;
+      }
 
       &:hover {
-        background: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.4);
         transform: scale(1.1);
       }
 
+      &:active {
+        transform: scale(1);
+      }
+
       i {
-        font-size: 1.2rem;
+        @include responsive-font(1.3rem, 1.2rem, 1.1rem);
       }
     }
 
-    .dots {
+    .dots-container {
+      flex: 1;
+      @include flex-center;
+
+      .dots {
+        display: flex;
+        gap: 0.8rem;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+
+        span {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.5);
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          @media (max-width: 480px) {
+            width: 10px;
+            height: 10px;
+          }
+
+          &.active {
+            background: $text-light;
+            transform: scale(1.3);
+          }
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: scale(1.2);
+          }
+        }
+      }
+    }
+  }
+
+  // Quick Access Menu for Mobile
+  .quick-access-mobile {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 36, 99, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 4;
+      padding: 1rem 0.5rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+
+      &.expanded {
+        transform: translateY(0);
+      }
+    }
+
+    .quick-links {
       display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
       gap: 0.5rem;
 
-      span {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.5);
-        cursor: pointer;
+      .quick-link {
+        @include flex-center;
+        flex-direction: column;
+        text-decoration: none;
+        color: $text-light;
+        padding: 0.5rem;
+        border-radius: 8px;
         transition: all 0.3s ease;
+        min-width: 60px;
 
-        &.active {
-          background: white;
-          transform: scale(1.2);
+        &:hover,
+        &:active {
+          background: rgba(255, 255, 255, 0.1);
         }
 
-        &:hover {
-          background: rgba(255, 255, 255, 0.8);
+        i {
+          font-size: 1.2rem;
+          margin-bottom: 0.3rem;
         }
+
+        span {
+          font-size: 0.7rem;
+          font-family: 'Montserrat', sans-serif;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  // Expand button for mobile quick access
+  .expand-quick-access {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: $wedding-primary;
+      color: $text-light;
+      border: none;
+      border-radius: 20px 20px 0 0;
+      padding: 0.5rem 2rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      z-index: 5;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: lighten($wedding-primary, 10%);
       }
     }
   }
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
+// Desktop-specific enhancements
+@media (min-width: 1025px) {
   .wedding-slider {
-    height: 60vh;
-
-    .slide {
-      .slide-content {
-        padding: 1.5rem;
-        width: 90%;
-
-        h3 {
-          font-size: 1.8rem;
-        }
-
-        p {
-          font-size: 1rem;
-        }
-      }
-    }
-
     .slider-controls {
-      bottom: 1rem;
+      .control {
+        &:hover {
+          transform: scale(1.15);
+        }
+      }
+    }
+
+    .slide {
+      .slide-content {
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+      }
     }
   }
 }
 
-@media (max-width: 480px) {
+// High-resolution displays
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
   .wedding-slider {
-    height: 50vh;
+    .slide {
+      background-size: cover;
+    }
+  }
+}
+
+// Print styles
+@media print {
+  .wedding-slider {
+    height: auto;
+    min-height: auto;
+
+    .slider-controls,
+    .quick-access-mobile {
+      display: none;
+    }
 
     .slide {
-      .slide-content {
-        h3 {
-          font-size: 1.5rem;
-        }
+      position: relative;
+      opacity: 1;
+      transform: none;
+      break-inside: avoid;
 
-        .slide-button {
-          padding: 0.6rem 1.5rem;
-          font-size: 0.9rem;
+      .slide-overlay {
+        display: none;
+      }
+
+      .slide-content {
+        background: white;
+        color: $text-dark;
+        box-shadow: none;
+
+        .title,
+        .description {
+          color: $text-dark;
         }
       }
     }

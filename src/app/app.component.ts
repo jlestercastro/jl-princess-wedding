@@ -10,8 +10,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [
     RouterOutlet,
-    MainLayoutComponent,
-    HeaderComponent,
     CommonModule
   ],
   templateUrl: './app.component.html'

@@ -12,8 +12,23 @@
         <li><a href="#home" routerLinkActive="active" (click)="closeMobileMenu()">Home</a></li>
         <li><a href="#couple" routerLinkActive="active" (click)="closeMobileMenu()">Couple</a></li>
         <li><a href="#story" routerLinkActive="active" (click)="closeMobileMenu()">Story</a></li>
-        <li><a href="#people" routerLinkActive="active" (click)="closeMobileMenu()">People</a></li>
+        
+        <!-- People Dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" routerLinkActive="active">
+            People
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#guardian" (click)="closeMobileMenu()">Guardian</a></li>
+            <li><a href="#sponsor" (click)="closeMobileMenu()">Sponsor</a></li>
+            <li><a href="#groomsmen" (click)="closeMobileMenu()">Groomsmen</a></li>
+            <li><a href="#bridesmaid" (click)="closeMobileMenu()">Bridesmaid</a></li>
+            <li><a href="#little-helper" (click)="closeMobileMenu()">Little Helper</a></li>
+          </ul>
+        </li>
+
         <li><a href="#event" routerLinkActive="active" (click)="closeMobileMenu()">Event</a></li>
+        <li><a href="/gallery" routerLinkActive="active" (click)="closeMobileMenu()">Gallery</a></li>
         <li><a href="#rsvp" routerLinkActive="active" (click)="closeMobileMenu()">Rsvp</a></li>
         <li><a href="#supplier" routerLinkActive="active" (click)="closeMobileMenu()">Suppliers</a></li>
       </ul>
@@ -33,8 +48,23 @@
         <li><a href="#home" routerLinkActive="active" (click)="closeMobileMenu()">Home</a></li>
         <li><a href="#couple" routerLinkActive="active" (click)="closeMobileMenu()">Couple</a></li>
         <li><a href="#story" routerLinkActive="active" (click)="closeMobileMenu()">Story</a></li>
-        <li><a href="#people" routerLinkActive="active" (click)="closeMobileMenu()">People</a></li>
+        
+        <!-- Mobile People Dropdown -->
+        <li class="mobile-dropdown">
+          <div class="mobile-dropdown-toggle" (click)="togglePeopleDropdown()">
+            People <i class="bi bi-chevron-down" [class.rotated]="peopleDropdownOpen"></i>
+          </div>
+          <ul class="mobile-dropdown-menu" [class.active]="peopleDropdownOpen">
+            <li><a href="#guardian" (click)="closeMobileMenu()">Guardian</a></li>
+            <li><a href="#sponsor" (click)="closeMobileMenu()">Sponsor</a></li>
+            <li><a href="#groomsmen" (click)="closeMobileMenu()">Groomsmen</a></li>
+            <li><a href="#bridesmaid" (click)="closeMobileMenu()">Bridesmaid</a></li>
+            <li><a href="#little-helper" (click)="closeMobileMenu()">Little Helper</a></li>
+          </ul>
+        </li>
+
         <li><a href="#event" routerLinkActive="active" (click)="closeMobileMenu()">Event</a></li>
+        <li><a href="/gallery" routerLinkActive="active" (click)="closeMobileMenu()">Gallery</a></li>
         <li><a href="#rsvp" routerLinkActive="active" (click)="closeMobileMenu()">Rsvp</a></li>
         <li><a href="#supplier" routerLinkActive="active" (click)="closeMobileMenu()">Suppliers</a></li>
       </ul>

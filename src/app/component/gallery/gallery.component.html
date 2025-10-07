@@ -1,0 +1,137 @@
+<div class="wedding-gallery">
+  <div class="gallery-container">
+    <!-- Header Section -->
+    <header class="gallery-header">
+      <h1 class="gallery-title">Our Wedding Gallery</h1>
+      <p class="gallery-subtitle">Capturing moments, creating memories</p>
+      <div class="header-decoration">
+        <div class="decoration-line"></div>
+        <i class="bi bi-heart-fill"></i>
+        <div class="decoration-line"></div>
+      </div>
+    </header>
+
+    <!-- Filter Tabs -->
+    <div class="gallery-filters">
+      <div class="filter-tabs">
+        <button 
+          class="filter-tab" 
+          *ngFor="let category of categories"
+          [class.active]="activeCategory === category.id"
+          (click)="filterGallery(category.id)">
+          <i class="bi" [class]="category.icon"></i>
+          {{ category.name }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid">
+      <div 
+        class="gallery-item" 
+        *ngFor="let image of filteredImages; let i = index"
+        [class.featured]="image.featured"
+        (click)="openLightbox(i)">
+        <div class="image-container">
+          <img 
+            [src]="image.src" 
+            [alt]="image.alt" 
+            class="gallery-image"
+            loading="lazy">
+          <div class="image-overlay">
+            <div class="overlay-content">
+              <i class="bi bi-zoom-in"></i>
+              <span class="image-caption">{{ image.caption }}</span>
+            </div>
+          </div>
+          <div class="image-badge" *ngIf="image.featured">
+            <i class="bi bi-star-fill"></i>
+            Featured
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load More Button -->
+    <div class="load-more-section" *ngIf="hasMoreImages">
+      <button class="load-more-btn" (click)="loadMore()">
+        <i class="bi bi-plus-circle"></i>
+        Load More Photos
+      </button>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="filteredImages.length === 0">
+      <i class="bi bi-images"></i>
+      <h3>No photos found</h3>
+      <p>There are no photos in this category yet.</p>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" [class.active]="lightboxActive" (click)="closeLightbox()">
+    <div class="lightbox-content" (click)="$event.stopPropagation()">
+      <!-- Close Button -->
+      <button class="lightbox-close" (click)="closeLightbox()">
+        <i class="bi bi-x"></i>
+      </button>
+
+      <!-- Navigation Arrows -->
+      <button class="lightbox-nav prev" (click)="previousImage()" *ngIf="currentImageIndex > 0">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <!-- Image Container -->
+      <div class="lightbox-image-container">
+        <img 
+          [src]="currentImage?.src" 
+          [alt]="currentImage?.alt" 
+          class="lightbox-image"
+          [class.loaded]="imageLoaded"
+          (load)="onImageLoad()"
+          (error)="onImageError()">
+        
+        <!-- Loading Spinner -->
+        <div class="loading-spinner" *ngIf="!imageLoaded">
+          <div class="spinner"></div>
+          <p>Loading image...</p>
+        </div>
+
+        <!-- Image Info -->
+        <div class="lightbox-info" *ngIf="currentImage && imageLoaded">
+          <div class="info-content">
+            <h3 class="image-title">{{ currentImage.caption }}</h3>
+            <p class="image-date">{{ currentImage.date }}</p>
+            <div class="image-meta">
+              <span class="image-category">
+                <i class="bi" [class]="getCategoryIcon(currentImage.category)"></i>
+                {{ getCategoryName(currentImage.category) }}
+              </span>
+              <span class="image-counter">
+                {{ currentImageIndex + 1 }} / {{ filteredImages.length }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button class="lightbox-nav next" (click)="nextImage()" *ngIf="currentImageIndex < filteredImages.length - 1">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+
+    <!-- Thumbnail Strip -->
+    <div class="lightbox-thumbnails" *ngIf="filteredImages.length > 1 && imageLoaded">
+      <div class="thumbnails-container">
+        <div 
+          class="thumbnail" 
+          *ngFor="let image of filteredImages; let i = index"
+          [class.active]="i === currentImageIndex"
+          (click)="goToImage(i)">
+          <img [src]="image.src" [alt]="'Thumbnail ' + (i + 1)">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

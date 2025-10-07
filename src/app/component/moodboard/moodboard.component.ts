@@ -21,17 +21,17 @@ export class MoodboardComponent {
   // Image gallery data
   weddingImages = [
     {
-      src: 'assets/image/motif/ceremony-setup.jpg',
+      src: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759791562/motif-3_bt2fzb.jpg',
       alt: 'Elegant white and blue wedding decor',
       caption: 'Ceremony Setup'
     },
     {
-      src: 'assets/image/motif/table-setting.jpg',
+      src: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759791561/motif-2_bswwia.jpg',
       alt: 'Wedding table setting with blue accents',
       caption: 'Table Setting'
     },
     {
-      src: 'assets/image/motif/wedding-cake.jpg',
+      src: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759791561/motif-1_atu3gj.jpg',
       alt: 'Wedding cake with white and blue decoration',
       caption: 'Wedding Cake'
     }

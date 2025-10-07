@@ -1,0 +1,228 @@
+<!-- wedding-party.component.html -->
+<div class="wedding-party">
+  <div class="party-container">
+    <!-- Header Section -->
+    <header class="party-header">
+      <h1 class="party-title">The Wedding Party</h1>
+      <p class="party-subtitle">Meet the wonderful people standing by our side as we begin our journey together</p>
+      <div class="header-decoration">
+        <div class="decoration-line"></div>
+        <i class="bi bi-heart-fill"></i>
+        <div class="decoration-line"></div>
+      </div>
+    </header>
+
+    <!-- Groomsmen Section -->
+    <section id="groomsmen" class="party-section">
+      <h2 class="section-title">Groomsmen</h2>
+      <div class="members-grid">
+        <div 
+          class="member-card" 
+          *ngFor="let member of groomsmen; let i = index"
+          [class.featured]="member.featured"
+          (click)="openMemberModal(i, 'groomsmen')">
+          
+          <!-- Member Photo -->
+          <div class="member-photo">
+            <div class="photo-container">
+              <img 
+                [src]="member.photo" 
+                [alt]="member.name" 
+                class="photo-image"
+                loading="lazy"
+                (error)="handleImageError($event, member)">
+              <div class="photo-overlay">
+                <i class="bi bi-info-circle"></i>
+              </div>
+            </div>
+            
+            <!-- Member Badge -->
+            <div class="member-badge" *ngIf="member.role === 'Best Man'">
+              <i class="bi bi-award-fill"></i>
+              Best Man
+            </div>
+          </div>
+
+          <!-- Member Info -->
+          <div class="member-info">
+            <h3 class="member-name">{{ member.name }}</h3>
+            <p class="member-role">{{ member.role }}</p>
+            
+            <!-- Relationship -->
+            <div class="member-relationship" *ngIf="member.relationship">
+              <i class="bi bi-person-heart"></i>
+              <span>{{ member.relationship }}</span>
+            </div>
+
+            <!-- Quick Message -->
+            <p class="member-message" *ngIf="member.shortMessage">
+              "{{ member.shortMessage }}"
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Matron of Honor -->
+    <section id="matron-of-honor" class="party-section">
+      <h2 class="section-title">Matron of Honor</h2>
+      <div class="members-grid matron">
+        <div 
+          class="member-card" 
+          *ngFor="let matron of matronofHonor; let i = index"
+          [class.featured]="matron.featured"
+          (click)="openMemberModal(i, 'matron-of-honor')">
+          
+          <!-- Member Photo -->
+          <div class="member-photo">
+            <div class="photo-container">
+              <img 
+                [src]="matron.photo" 
+                [alt]="matron.name" 
+                class="photo-image"
+                loading="lazy"
+                (error)="handleImageError($event, matron!)">
+              <div class="photo-overlay">
+                <i class="bi bi-info-circle"></i>
+              </div>
+            </div>
+            
+            <!-- Member Badge -->
+            <div class="member-badge" *ngIf="matron?.role === 'Maid of Honor'">
+              <i class="bi bi-award-fill"></i>
+              Maid of Honor
+            </div>
+          </div>
+
+          <!-- Member Info -->
+          <div class="member-info">
+            <h3 class="member-name">{{ matron.name }}</h3>
+            <p class="member-role">{{ matron.role }}</p>
+            
+            <!-- Relationship -->
+            <div class="member-relationship" *ngIf="matron?.relationship">
+              <i class="bi bi-person-heart"></i>
+              <span>{{ matron.relationship }}</span>
+            </div>
+
+            <!-- Quick Message -->
+            <p class="member-message" *ngIf="matron?.shortMessage">
+              "{{ matron.shortMessage }}"
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bridesmaids Section -->
+    <section id="bridesmaid" class="party-section">
+      <h2 class="section-title">Bridesmaids</h2>
+      <div class="members-grid">
+        <div 
+          class="member-card" 
+          *ngFor="let member of bridesmaids; let i = index"
+          [class.featured]="member.featured"
+          (click)="openMemberModal(i, 'bridesmaids')">
+          
+          <!-- Member Photo -->
+          <div class="member-photo">
+            <div class="photo-container">
+              <img 
+                [src]="member.photo" 
+                [alt]="member.name" 
+                class="photo-image"
+                loading="lazy"
+                (error)="handleImageError($event, member)">
+              <div class="photo-overlay">
+                <i class="bi bi-info-circle"></i>
+              </div>
+            </div>
+            
+            <!-- Member Badge -->
+            <div class="member-badge" *ngIf="member.role === 'Maid of Honor'">
+              <i class="bi bi-award-fill"></i>
+              Maid of Honor
+            </div>
+          </div>
+
+          <!-- Member Info -->
+          <div class="member-info">
+            <h3 class="member-name">{{ member.name }}</h3>
+            <p class="member-role">{{ member.role }}</p>
+            
+            <!-- Relationship -->
+            <div class="member-relationship" *ngIf="member.relationship">
+              <i class="bi bi-person-heart"></i>
+              <span>{{ member.relationship }}</span>
+            </div>
+
+            <!-- Quick Message -->
+            <p class="member-message" *ngIf="member.shortMessage">
+              "{{ member.shortMessage }}"
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Special Message Section -->
+    <div class="special-message">
+      <div class="message-content">
+        <i class="bi bi-flower1"></i>
+        <h3>Our Heartfelt Thanks</h3>
+        <p>To our incredible wedding party - you have been our pillars of strength, our sources of laughter, and our closest companions on this journey. Thank you for standing with us as we begin this new chapter together.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Member Modal -->
+  <div class="member-modal" [class.active]="modalActive" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()" *ngIf="selectedMember">
+      <!-- Close Button -->
+      <button class="modal-close" (click)="closeModal()">
+        <i class="bi bi-x"></i>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-photo">
+          <img [src]="selectedMember.photo" [alt]="selectedMember.name" (error)="handleImageError($event, selectedMember)">
+        </div>
+        <div class="modal-title">
+          <h2>{{ selectedMember.name }}</h2>
+          <p class="modal-role">{{ selectedMember.role }}</p>
+          <div class="modal-relationship" *ngIf="selectedMember.relationship">
+            <i class="bi bi-person-heart-fill"></i>
+            {{ selectedMember.relationship }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <!-- Advice -->
+        <div class="modal-section" *ngIf="selectedMember.advice">
+          <h4>Marriage Advice</h4>
+          <p class="advice-text">"{{ selectedMember.advice }}"</p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button class="nav-btn prev" (click)="previousMember()" *ngIf="selectedMemberIndex > 0">
+          <i class="bi bi-chevron-left"></i>
+          Previous
+        </button>
+        
+        <div class="modal-counter">
+          {{ selectedMemberIndex + 1 }} / {{ currentMembersCount }}
+        </div>
+        
+        <button class="nav-btn next" (click)="nextMember()" *ngIf="selectedMemberIndex < currentMembersCount - 1">
+          Next
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
