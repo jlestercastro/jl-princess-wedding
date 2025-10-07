@@ -35,7 +35,7 @@ export class CoupleComponent {
   bride: Person = {
     name: 'May Princess Rago Manalo',
     photo: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759791526/bride_lwx4pf.jpg',
-    bio: 'Princess is a passionate business analyst. She loves traveling, painting, and spending weekends exploring new coffee shops with Michael. Her warm heart and creative spirit light up every room she enters.',
+    bio: 'Princess is a passionate business analyst. She loves traveling, painting, and spending weekends exploring new coffee shops with JL. Her warm heart and creative spirit light up every room she enters.',
     facts: [
       { icon: 'bi-briefcase', label: 'Profession', value: 'Business Analyst' },
       { icon: 'bi-geo-alt', label: 'Hometown', value: 'Calapan City Or. Mindoro' },
