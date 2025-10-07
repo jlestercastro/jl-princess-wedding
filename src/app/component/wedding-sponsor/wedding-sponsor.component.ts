@@ -318,27 +318,88 @@ export class WeddingSponsorComponent {
     return this.sponsors.filter(sponsor => !sponsor.featured);
   }
 
-  // Handle image errors
-  handleImageError(event: any, member: Sponsor): void {
-    event.target.src = this.getInitialsAvatar(member.name);
+  // Improved handleImageError method
+  handleImageError(event: Event, sponsor: Sponsor): void {
+    const imgElement = event.target as HTMLImageElement;
+    
+    // Remove any existing error handlers to prevent infinite loop
+    imgElement.onerror = null;
+    
+    // Set the initials avatar
+    imgElement.src = this.getInitialsAvatar(sponsor.name);
+    
+    // Add a class for styling
+    imgElement.classList.add('initials-avatar');
   }
 
+  // Enhanced getInitialsAvatar method
   private getInitialsAvatar(name: string): string {
-    const initials = name
-      .split(' ')
-      .map(n => n[0])
-      .join('')
-      .toUpperCase();
+    // Extract initials (handle "Mr. & Mrs." cases and single names)
+    const nameParts = name.split('&').map(part => part.trim());
+    let initials = '';
+    
+    if (nameParts.length > 1) {
+      // For couples like "Mr. & Mrs. John Doe"
+      initials = nameParts.map(part => {
+        const words = part.split(' ').filter(word => 
+          !word.includes('Mr.') && 
+          !word.includes('Mrs.') && 
+          !word.includes('Dr.') && 
+          !word.includes('Engr.')
+        );
+        return words.length > 0 ? words[words.length - 1][0] : '';
+      }).join('').toUpperCase();
+    } else {
+      // For single names
+      const words = name.split(' ').filter(word => 
+        !word.includes('Mr.') && 
+        !word.includes('Mrs.') && 
+        !word.includes('Dr.') && 
+        !word.includes('Engr.')
+      );
+      
+      if (words.length >= 2) {
+        initials = (words[0][0] + words[words.length - 1][0]).toUpperCase();
+      } else if (words.length === 1) {
+        initials = words[0].substring(0, 2).toUpperCase();
+      } else {
+        initials = 'SP'; // Default for Sponsor
+      }
+    }
 
+    // Remove duplicates and limit to 2 characters
+    initials = [...new Set(initials.split(''))].join('').substring(0, 2);
+
+    // Generate consistent color based on name
+    const color = this.generateColorFromName(name);
+
+    // Create SVG with initials
     const svg = `
       <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
-        <rect width="100%" height="100%" fill="#0a2463"/>
+        <rect width="100%" height="100%" fill="${color}"/>
         <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" 
               fill="white" font-family="Arial, sans-serif" font-size="80" font-weight="bold">
           ${initials}
         </text>
       </svg>
     `;
+    
     return 'data:image/svg+xml;base64,' + btoa(svg);
+  }
+
+  // Generate consistent color based on name
+  private generateColorFromName(name: string): string {
+    const colors = [
+      '#0a2463', '#1e4091', '#2c5282', '#2d3748', '#4a5568',
+      '#2b6cb0', '#3182ce', '#d4af37', '#b7791f', '#744210'
+    ];
+    
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    
+    const index = Math.abs(hash) % colors.length;
+    return colors[index];
   }
 }

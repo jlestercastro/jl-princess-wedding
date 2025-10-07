@@ -34,45 +34,45 @@ export class SliderComponent implements  OnInit, OnDestroy {
   slides: Slide[] = [
     {
       image: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759791569/slider-image-1_nincre.jpg',
-      title: 'Our Wedding Story',
-      description: 'Join us as we begin our journey together',
-      buttonText: 'Our Story',
-      link: '#story'
+      title: 'The Big Day',
+      description: 'October 25, 2025 - Save the date!',
+      buttonText: 'Countdown',
+      link: '#countdown'
     },
     {
       image: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759791568/slider-image-8_a06wov.jpg',
-      title: 'The Big Day',
-      description: 'October 25, 2025 - Save the date!',
-      buttonText: 'Event Details',
+      title: 'Our Wedding Story',
+      description: 'Join us as we begin our journey together',
+      buttonText: 'View Story',
       link: '#event'
     },
     {
       image: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759791568/slider-image-9_kx8vjp.jpg',
-      title: 'Gallery',
-      description: 'Our special moments together',
-      buttonText: 'View Photos',
-      link: '/gallery'
+      title: 'Guardian',
+      description: 'Our Lovely and Supportive Parent\'s',
+      buttonText: 'Guardian',
+      link: '#guardian'
     },
     {
       image: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759791572/slider-image-3_ydb3x1.jpg',
       title: 'Gallery',
       description: 'Our special moments together',
-      buttonText: 'View Photos',
-      link: '/gallery/special-moments'
+      buttonText: 'View Photo\'s',
+      link: '/gallery'
     },
     {
       image: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759791570/slider-image-10_mllbqe.jpg',
-      title: 'Gallery',
-      description: 'Our special moments together',
-      buttonText: 'View Photos',
-      link: '/gallery/special-moments'
+      title: 'Wedding Party',
+      description: 'Wedding Party',
+      buttonText: 'View Detail\'s',
+      link: '/people'
     },
     {
       image: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759791570/slider-image-5_uris3q.jpg',
-      title: 'Gallery',
-      description: 'Our special moments together',
-      buttonText: 'View Photos',
-      link: '/gallery/special-moments'
+      title: 'Motif',
+      description: 'Moodboard',
+      buttonText: 'Motif',
+      link: '#moodboard'
     },
     {
       image: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759791571/slider-image-6_x2smmj.jpg',
@@ -146,7 +146,7 @@ export class SliderComponent implements  OnInit, OnDestroy {
   private startAutoSlide(): void {
     this.autoSlideInterval = setInterval(() => {
       this.nextSlide();
-    }, 3000);
+    }, 5000);
   }
 
   private stopAutoSlide(): void {

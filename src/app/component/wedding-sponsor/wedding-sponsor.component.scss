@@ -666,3 +666,33 @@ $font-secondary: 'Montserrat', sans-serif;
     }
   }
 }
+
+// Add to your existing SCSS
+.initials-avatar {
+  object-fit: cover !important;
+  background: linear-gradient(135deg, #0a2463 0%, #1a337c 100%);
+  
+  // Ensure the SVG displays properly
+  &[src*="data:image/svg+xml"] {
+    background: none;
+  }
+}
+
+// Enhance the photo container to handle initials avatars better
+.photo-container {
+  .photo-image.initials-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+  }
+}
+
+// Modal photo should also handle initials
+.modal-photo {
+  img.initials-avatar {
+    object-fit: cover;
+    background: linear-gradient(135deg, #0a2463 0%, #1a337c 100%);
+  }
+}
