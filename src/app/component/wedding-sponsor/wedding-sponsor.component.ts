@@ -152,7 +152,7 @@ export class WeddingSponsorComponent {
       name: 'Mr. & Mrs. Genesis and Kath Castro',
       role: 'Principal Sponsor',
       relationship: 'Groom\'s Uncle and Auntie',
-      photo: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759791603/genesis_wqjnpr.jpg',
+      photo: 'https://res.cloudinary.com/ddds8zwgx/image/upload/v1759807766/genesis_ra9rx3.jpg',
       bio: 'David and Susan have been close friends with both families for over 20 years. They\'ve watched both Sarah and JL grow up and are delighted to see them together.',
       message: 'We\'ve known these two since they were children, and seeing them find each other feels like the most natural thing in the world.',
       advice: 'Remember to laugh together every day. A sense of humor will get you through the toughest times.',
